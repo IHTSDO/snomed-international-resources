@@ -60,6 +60,11 @@ body .kc-logo-text {
 /* Room at the top so the card doesn't sit under the fixed logo */
 .login-pf-page, .pf-c-login {
   padding-top: var(--si-top-clearance);
+  min-height: calc(100vh - var(--si-top-clearance));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 /* ===== Card / form container (neutral border, off-grey bg) ===== */
@@ -224,12 +229,15 @@ input[type="submit"].btn.btn-primary {
 }
 
 /* Vertically center the form area on small screens, below the fixed logo */
+
 @media (max-width: 768px), (max-height: 700px) {
   .login-pf-page, .pf-c-login {
-    min-height: calc(100vh - var(--si-top-clearance));
+    min-height: 100vh;
     display: flex;
     align-items: center;      /* vertical centering */
     justify-content: center;
+    box-sizing: border-box;
+    padding-top: 0 !important; /* remove logo clearance so centering is true */
   }
   .pf-c-login__main, #kc-content { margin: 0 auto; }
 }
