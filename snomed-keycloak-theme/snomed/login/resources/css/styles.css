@@ -1,0 +1,13 @@
+/* Override the theme to adjust logo size */
+div.kc-logo-text {
+    background-image: url(../img/keycloak-logo-text.png);
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+/* Change Border color of login box */
+.card-pf {
+    border-color: var(--pf-global--palette--light-blue-400);
+}
