@@ -1,13 +1,235 @@
-/* Override the theme to adjust logo size */
-div.kc-logo-text {
-    background-image: url(../img/keycloak-logo-text.png);
-    background-repeat: no-repeat;
-    height: 300px;
-    width: 300px;
-    margin: 0 auto;
+/* Load Montserrat (keep at top) */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+/* ===== Vars ===== */
+:root {
+  /* Logo */
+  --kc-logo-w: 320px;
+  --kc-logo-h: 100px;
+  --kc-logo-offset: 6px;
+
+  /* Typography */
+  --si-font: "Montserrat", serif;
+
+  /* Colors */
+  --si-card-bg: #f4f5f7;               /* off grey form background */
+  --si-card-border: rgba(17,24,39,.06);/* neutral border (no blue outline) */
+  --si-field-bg: #fff;                 /* white inputs */
+  --si-field-border: #dfe3e8;          /* default input border */
+  --si-field-focus: #9aa4b2;           /* neutral focus border (no green) */
+  --si-focus-ring: rgba(31,41,55,.06); /* very soft focus halo */
+  --si-text: #1f2937;                  /* dark text */
+  --si-icon: #2f3b4a;                  /* eye icon color */
+
+  --si-green: #66b21f;                 /* primary green */
+  --si-green-hover: #579718;
+
+  /* Spacing derived from logo (used for top clearance) */
+  --si-top-clearance: calc(var(--kc-logo-h) + (var(--kc-logo-offset) * 2));
 }
 
-/* Change Border color of login box */
-.card-pf {
-    border-color: var(--pf-global--palette--light-blue-400);
+/* ===== Base type & smoothing ===== */
+html, body, .login-pf-page, .pf-c-login {
+  font-family: var(--si-font);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure controls and buttons inherit the font */
+input, select, textarea, button, .pf-c-button, .pf-c-form-control {
+  font-family: var(--si-font);
+}
+
+/* ===== Logo: smaller + top-left (fixed) ===== */
+body .kc-logo-text {
+  background-image: url(../img/keycloak-logo-text.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left center;
+  width: var(--kc-logo-w) !important;
+  height: var(--kc-logo-h) !important;
+  position: fixed !important;
+  top: var(--kc-logo-offset) !important;
+  left: var(--kc-logo-offset) !important;
+  margin: 0 !important;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+/* Room at the top so the card doesn't sit under the fixed logo */
+.login-pf-page, .pf-c-login {
+  padding-top: var(--si-top-clearance);
+}
+
+/* ===== Card / form container (neutral border, off-grey bg) ===== */
+.login-pf-page .card-pf,
+#kc-content .card-pf,
+.pf-c-login__main .pf-c-card,
+.pf-c-login__main .card-pf {
+  background: var(--si-card-bg) !important;
+  color: var(--si-text);
+  border: 1px solid var(--si-card-border) !important;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.18);
+  margin: 0 auto;
+}
+
+/* ===== Inputs: white fields, neutral focus (no green outline) ===== */
+.login-pf-page .form-control,
+#kc-content .form-control,
+.pf-c-form-control,
+input[type="text"], input[type="email"], input[type="password"],
+input[type="search"], input[type="tel"] {
+  background: var(--si-field-bg) !important;
+  border: 1px solid var(--si-field-border) !important;
+  color: var(--si-text) !important;
+  border-radius: 8px !important;
+}
+
+.login-pf-page .form-control:focus,
+#kc-content .form-control:focus,
+.pf-c-form-control:focus {
+  outline: none;
+  border-color: var(--si-field-focus) !important;
+  box-shadow: 0 0 0 3px var(--si-focus-ring) !important;
+}
+
+/* Labels for contrast */
+.pf-c-form__label, .control-label, label {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* ===== Password "eye" inside the field (PF4 & PF3) ===== */
+form#kc-form-login .pf-c-input-group,
+form#kc-form-login .input-group {
+  position: relative; /* anchor for absolute icon */
+}
+
+/* Give the input space for the icon on the right */
+form#kc-form-login .pf-c-input-group .pf-c-form-control,
+form#kc-form-login .input-group > .form-control {
+  padding-right: 3rem !important; /* ~48px click target */
+}
+
+/* PF4 toggle button (Keycloak 18+) */
+form#kc-form-login .pf-c-input-group .pf-c-button.pf-m-control,
+form#kc-form-login .pf-c-input-group .pf-c-button.pf-m-plain,
+form#kc-form-login .pf-c-input-group .kc-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 32px; height: 32px;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0; margin: 0;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--si-icon);
+}
+
+/* PF3 toggle (older templates) */
+form#kc-form-login .input-group .input-group-btn .btn,
+form#kc-form-login .input-group .input-group-addon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 32px; height: 32px;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0; margin: 0;
+  border-radius: 50%;
+  color: var(--si-icon);
+  line-height: 1;
+}
+
+/* Hover/focus affordance for the icon circle */
+form#kc-form-login .pf-c-input-group .pf-c-button.pf-m-control:hover,
+form#kc-form-login .pf-c-input-group .pf-c-button.pf-m-plain:hover,
+form#kc-form-login .pf-c-input-group .kc-password-toggle:hover,
+form#kc-form-login .input-group .input-group-btn .btn:hover,
+form#kc-form-login .input-group .input-group-addon:hover {
+  background: rgba(0,0,0,0.04) !important;
+}
+
+form#kc-form-login .pf-c-input-group:focus-within .pf-c-form-control,
+form#kc-form-login .input-group:focus-within > .form-control {
+  border-color: var(--si-field-focus) !important;
+  box-shadow: 0 0 0 3px var(--si-focus-ring) !important;
+}
+
+/* ===== Title: slightly larger on 14px base ===== */
+#kc-page-title, .kc-page-title,
+.login-pf-page .card-pf h1,
+.pf-c-login__main .pf-c-title {
+  font-size: 1.75rem;  /* ≈24.5px */
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Primary button: green ===== */
+.pf-c-button.pf-m-primary,
+.btn-primary,
+#kc-login,
+input[type="submit"].btn.btn-primary {
+  background-color: var(--si-green) !important;
+  border-color: var(--si-green) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  font-weight: 600;
+}
+.pf-c-button.pf-m-primary:hover,
+.btn-primary:hover,
+#kc-login:hover {
+  background-color: var(--si-green-hover) !important;
+  border-color: var(--si-green-hover) !important;
+}
+.pf-c-button.pf-m-primary:focus,
+.btn-primary:focus,
+#kc-login:focus { outline: none; box-shadow: 0 0 0 3px rgba(63,125,18,.35) !important; }
+
+/* Social providers: keep neutral so green stands out */
+#kc-social-providers .pf-c-button,
+#kc-social-providers .btn {
+  background: #fff;
+  border-color: var(--si-field-border);
+  color: #374151;
+}
+
+/* ===== Injected "apply for an account" line ===== */
+.si-apply {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--pf-global--Color--200, #6a6e73);
+}
+.si-apply a { text-decoration: underline; color: var(--pf-global--primary-color--100, #06c); }
+.si-apply a:hover { text-decoration: none; }
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 480px) {
+  :root {
+    --kc-logo-w: 260px;
+    --kc-logo-h: 60px;
+    --kc-logo-offset: 4px;
+    --si-top-clearance: calc(var(--kc-logo-h) + (var(--kc-logo-offset) * 2));
+  }
+}
+
+/* Vertically center the form area on small screens, below the fixed logo */
+@media (max-width: 768px), (max-height: 700px) {
+  .login-pf-page, .pf-c-login {
+    min-height: calc(100vh - var(--si-top-clearance));
+    display: flex;
+    align-items: center;      /* vertical centering */
+    justify-content: center;
+  }
+  .pf-c-login__main, #kc-content { margin: 0 auto; }
 }
