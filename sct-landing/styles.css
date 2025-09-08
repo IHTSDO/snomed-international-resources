@@ -195,20 +195,16 @@ body {
     box-shadow: 0 4px 12px rgba(0, 155, 119, 0.4);
 }
 
-/* Account button - Gray from brand palette */
+/* Account button - Orange from brand palette */
 .account-button {
-    background: linear-gradient(135deg, #cfcdc9 0%, #101820 100%) !important;
-    cursor: not-allowed !important;
-    opacity: 0.8;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+    cursor: pointer !important;
+    opacity: 1;
 }
 
 .account-button:hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-.account-button:disabled {
-    opacity: 0.8;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4) !important;
 }
 
 /* Ensure account box button is positioned at bottom */
@@ -384,6 +380,14 @@ body {
 
 .footer p:last-child {
     margin-bottom: 0;
+}
+
+.last-updated {
+    font-size: 0.5rem;
+    color: #94a3b8;
+    font-style: italic;
+    margin-top: 0.75rem;
+    text-align: right;
 }
 
 /* Responsive Design */
