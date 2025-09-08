@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Base URLs for the search services
     const DOCS_SEARCH_BASE_URL = 'https://docs.snomed.org/?q=';
-    const CONFLUENCE_SEARCH_BASE_URL = 'https://spaces.snomed.org/search?text=';
+    const CONFLUENCE_SEARCH_BASE_URL = 'https://spaces.snomed.org/wiki/search?text=';
     const FORUMS_SEARCH_BASE_URL = 'https://forums.snomed.org/search?q=';
 
     /**
