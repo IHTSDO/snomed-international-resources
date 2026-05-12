@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)https://someonething.com/reports/content-roadmap-dashboard.html -->
+<html lang="en" style="color-scheme: light;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNOMED CT Content Development Roadmap</title>
+<style>
+:root {
+  --navy:       #003865;
+  --navy-mid:   #0070C0;
+  --navy-light: #D6E4F0;
+  --navy-pale:  #EBF3FB;
+  --green-dk:   #375623;
+  --green-bg:   #E2EFDA;
+  --green-bar:  #70AD47;
+  --teal-dk:    #004D40;
+  --teal-bg:    #E0F2F1;
+  --teal-bar:   #26A69A;
+  --orange:     #C55A11;
+  --orange-bg:  #FCE4D6;
+  --orange-bar: #ED7D31;
+  --purple:     #4527A0;
+  --purple-bg:  #EDE7F6;
+  --purple-bar: #7B2D8B;
+  --pink-bg:    #FDE8EF;
+  --blue-dk:    #003865;
+  --blue-bg:    #DBEAFE;
+  --blue-bar:   #2563EB;
+  --amber:      #7F6000;
+  --amber-bg:   #FFF2CC;
+  --grey:       #595959;
+  --grey-bg:    #F2F2F2;
+  --grey-lt:    #F8F8F8;
+  --border:     #BFBFBF;
+  --text:       #1A1A1A;
+  --font:       'Segoe UI', Arial, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--text);background:#EAEEF3;font-size:15px;line-height:1.55}
+
+/* ── Header ── */
+header{background:var(--navy);color:#fff;padding:0 40px}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo-img{height:64px;width:64px;border-radius:4px;display:block;flex-shrink:0}
+.header-title{font-size:20px;font-weight:300;margin-left:16px;flex:1}
+.header-right{text-align:right;font-size:13px;color:#9CC3E5;flex-shrink:0}
+.header-right strong{display:block;color:#fff;font-size:14px;margin-bottom:2px}
+.live-badge{background:var(--green-bar);color:#fff;font-size:11px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:10px;text-transform:uppercase}
+
+/* ── Draft banner ── */
+.draft-banner{background:#FFF3CD;border-bottom:2px solid #FFC000;padding:9px 40px;font-size:13px;color:#5C3D00}
+.draft-banner-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:8px}
+
+/* ── Pillars strip ── */
+.pillars-wrap{background:var(--navy);border-top:1px solid #1A4D80;padding:0 40px 18px}
+.pillars-inner{max-width:1400px;margin:0 auto}
+.pillars-intro{font-size:13px;color:#9CC3E5;padding:12px 0 10px}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pillar{background:rgba(255,255,255,.07);border-radius:6px;padding:12px 16px;border-left:4px solid var(--navy-mid)}
+.pillar-num{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#9CC3E5;margin-bottom:3px}
+.pillar-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+.pillar-body{font-size:12px;color:#BDD8F0;line-height:1.4}
+
+/* ── Nav ── */
+.nav-wrap{background:#fff;border-bottom:1px solid var(--border);padding:0 40px}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex}
+.tab-btn{padding:12px 20px;border:none;background:none;font-family:var(--font);font-size:14px;font-weight:500;color:var(--grey);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;white-space:nowrap}
+.tab-btn:hover{color:var(--navy-mid)}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--navy-mid);font-weight:700}
+
+/* ── Main content ── */
+.main{max-width:1400px;margin:0 auto;padding:24px 40px 60px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── Filter bar ── */
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:20px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px 16px}
+.filter-block{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0}
+.filter-group{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.filter-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);white-space:nowrap;flex-shrink:0}
+.f-btn{padding:4px 11px;border:1px solid var(--border);border-radius:12px;background:#fff;font-family:var(--font);font-size:12px;font-weight:600;color:var(--grey);cursor:pointer;transition:all .12s;white-space:nowrap}
+.f-btn:hover{border-color:var(--navy-mid);color:var(--navy-mid)}
+.f-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.filter-meta{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.filter-count{font-size:12px;color:var(--grey);font-style:italic}
+.filter-reset{font-size:12px;font-weight:600;color:var(--navy-mid);background:transparent;border:none;cursor:pointer;padding:3px 10px;border-radius:10px;letter-spacing:.2px}
+.filter-reset:hover{background:var(--grey-bg);color:var(--navy)}
+.filter-reset[hidden]{display:none}
+@media (max-width:860px){
+  .filter-bar{gap:12px}
+  .filter-block{flex-basis:100%;flex-wrap:wrap}
+  .filter-meta{margin-left:0;width:100%;justify-content:flex-end}
+}
+
+/* ── Colour key ── */
+.colour-key{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;font-size:12px;color:var(--grey)}
+.colour-key .key-label{font-weight:700;text-transform:uppercase;letter-spacing:.4px;font-size:11px;white-space:nowrap}
+.colour-key .key-item{display:flex;align-items:center;gap:5px;white-space:nowrap;flex-direction:row;padding:0;background:transparent;border:none;border-radius:0;min-height:0}
+.key-swatch{width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.15);flex-shrink:0}
+.key-swatch.crg       {background:var(--purple-bg);border-color:#C5B3E6}
+.key-swatch.collab    {background:var(--green-bg);border-color:#B9D9A7}
+.key-swatch.collab-auth{background:var(--teal-bg);border-color:#80CBC4}
+.key-swatch.qa        {background:var(--orange-bg);border-color:#F4B78E}
+.key-swatch.wg        {background:var(--pink-bg);border-color:#F4ADC6}
+.key-swatch.members   {background:var(--blue-bg);border-color:#93C5FD}
+.key-swatch.assessing {background:var(--grey-bg);border-color:#D0D0D0}
+
+/* ── Horizon board ── */
+.horizon-board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+.horizon-col{background:#fff;border-radius:8px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.horizon-header{padding:12px 14px 10px;font-weight:700;font-size:13px;color:#fff;display:flex;align-items:baseline;justify-content:space-between;border-radius:7px 7px 0 0}
+.horizon-header.now    {background:var(--navy)}
+.horizon-header.next   {background:#1B5E8A}
+.horizon-header.later  {background:#2E7D52}
+.horizon-header.assess {background:#5C4B1A}
+.horizon-label{font-size:15px;font-weight:800;letter-spacing:.3px}
+.horizon-sub{font-size:11px;font-weight:400;opacity:.75;margin-top:2px}
+.horizon-count{font-size:24px;font-weight:800;opacity:.85;flex-shrink:0;margin-left:8px}
+.horizon-items{padding:10px;display:flex;flex-direction:column;gap:8px;min-height:80px}
+.horizon-empty{font-size:12px;color:#aaa;font-style:italic;padding:8px 4px;text-align:center}
+
+/* ── Cards ── */
+.rm-card{border-radius:6px;border:1px solid transparent;padding:10px 12px;transition:box-shadow .12s}
+.rm-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.rm-card.crg        {background:var(--purple-bg);border-color:#C5B3E6}
+.rm-card.collab     {background:var(--green-bg);border-color:#B9D9A7}
+.rm-card.collab-auth{background:var(--teal-bg);border-color:#80CBC4}
+.rm-card.qa         {background:var(--orange-bg);border-color:#F4B78E}
+.rm-card.wg         {background:var(--pink-bg);border-color:#F4ADC6}
+.rm-card.members    {background:var(--blue-bg);border-color:#93C5FD}
+.rm-card.planning   {background:var(--amber-bg);border-color:#FFD966;border-style:dashed}
+.rm-card.assessing  {background:var(--grey-bg);border-color:#D0D0D0;border-style:dashed}
+
+.card-top-row{display:flex;align-items:center;gap:5px;margin-bottom:5px;flex-wrap:wrap}
+.card-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:3px;line-height:1.3}
+.card-type-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px;display:inline-block}
+.nature-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;letter-spacing:.2px;margin-left:5px;vertical-align:middle;display:inline-block;margin-bottom:5px}
+.nature-continuous{background:#F0F0F0;color:#555;border:1px solid #C8C8C8}
+.nature-project{background:#E8F4FD;color:#0D47A1;border:1px solid #90CAF9}
+.type-crg       {color:var(--purple)}
+.type-collab    {color:var(--green-dk)}
+.type-collab-auth{color:var(--teal-dk)}
+.type-qa        {color:var(--orange)}
+.type-members   {color:var(--blue-dk)}
+.type-wg        {color:#880E4F}
+.type-planning  {color:var(--amber)}
+.type-assessing {color:var(--grey)}
+
+.card-activity{font-size:12px;color:#444;line-height:1.4;margin-bottom:4px}
+.card-progress{font-size:12px;color:#333;line-height:1.4;margin-bottom:4px;padding:4px 7px;background:rgba(0,0,0,.04);border-radius:3px;border-left:2px solid var(--navy-mid)}
+.card-member-ask{font-size:12px;color:#444;line-height:1.4;margin-bottom:4px;font-style:italic}
+.ask-label{font-style:normal;font-weight:700;color:var(--grey);font-size:10px;text-transform:uppercase;letter-spacing:.3px;margin-right:3px}
+.card-milestone{font-size:11px;color:var(--navy-mid);margin-bottom:5px}
+.ms-label{font-weight:700}
+
+/* SI status badges */
+.si-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
+.badge-delivery {background:var(--navy);color:#fff}
+.badge-planned  {background:#1B5E8A;color:#fff}
+.badge-paused   {background:#5C4B1A;color:#fff}
+.badge-gap      {background:#B71C1C;color:#fff}
+.badge-deferred {background:var(--grey);color:#fff}
+.badge-delivered{background:#2E7D32;color:#fff}
+
+.gap-warn{font-size:10px;font-weight:700;color:#B71C1C;border:1px solid #B71C1C;border-radius:3px;padding:1px 5px;margin-left:2px;white-space:nowrap;flex-shrink:0}
+.card-owner{font-size:10px;color:var(--grey);margin-left:auto;white-space:nowrap;flex-shrink:0}
+
+/* Provenance chips */
+.card-prov{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.prov-chip{font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.chip-seoul  {background:#1565C0;color:#fff}
+.chip-antwerp{background:#E65100;color:#fff}
+.chip-vienna {background:#2E7D32;color:#fff}
+.chip-si     {background:#546E7A;color:#fff}
+.rank-pill   {font-size:10px;font-weight:600;padding:2px 6px;border-radius:8px;background:#DEEBF7;color:#1E4D8C;margin-left:2px}
+
+/* ── In Maintenance section ── */
+.delivered-section{margin-top:28px}
+.delivered-header{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.delivered-header::after{content:'';flex:1;height:1px;background:var(--border)}
+.delivered-count{font-size:12px;font-weight:400;color:var(--grey);text-transform:none;letter-spacing:0;background:var(--grey-bg);padding:2px 8px;border-radius:10px}
+.bau-sub-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--grey);margin-bottom:8px;opacity:.7}
+.delivered-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+
+/* ── Trigger badge & Members-asked block on cards ── */
+.card-trigger{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle;border:1px solid;white-space:nowrap}
+.trig-member-started   {background:#DBEAFE;color:#1E40AF;border-color:#93C5FD}
+.trig-member-accelerated{background:#E0F2FE;color:#075985;border-color:#7DD3FC}
+.trig-pre-existing     {background:#F3F4F6;color:#4B5563;border-color:#D1D5DB}
+.trig-qa-programme     {background:#FED7AA;color:#9A3412;border-color:#FDBA74}
+.trig-declined         {background:#FEE2E2;color:#991B1B;border-color:#FCA5A5}
+.trig-not-assessed     {background:#FEF3C7;color:#92400E;border-color:#FDE68A}
+.card-asked{font-size:11px;color:#334155;line-height:1.35;margin-bottom:4px;padding:4px 7px;background:rgba(37,99,235,.06);border-radius:3px;border-left:2px solid #2563EB}
+.asked-label{font-weight:700;color:#1E40AF;font-size:9px;text-transform:uppercase;letter-spacing:.3px;margin-right:3px}
+.tentative-note{color:var(--grey);font-style:italic;font-size:9px;margin-left:3px}
+
+/* ── Under Assessment sub-buckets ── */
+.assess-sub-head{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#5C4B1A;padding:6px 4px 3px;border-top:1px dashed #CFC49E;margin-top:6px;display:flex;align-items:center;gap:6px}
+.assess-sub-head:first-of-type{border-top:none;margin-top:0}
+.assess-sub-count{font-size:9px;font-weight:400;color:#8A7B4A;background:#F5EDCF;padding:1px 6px;border-radius:8px}
+.assess-sub-empty{font-size:10px;color:#aaa;font-style:italic;padding:2px 4px}
+
+/* ── Top 5 Priorities tab ── */
+.t5-intro{font-size:13px;color:var(--grey);margin-bottom:20px;line-height:1.5}
+.t5-list{display:flex;flex-direction:column;gap:16px}
+.t5-card{display:flex;gap:0;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.t5-rank{flex:0 0 56px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;background:var(--navy)}
+.t5-body{flex:1;padding:16px 20px}
+.t5-header{margin-bottom:10px}
+.t5-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.t5-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.t5-demand{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;padding:10px 12px;background:var(--navy-pale);border-radius:6px}
+.t5-demand-item{text-align:center}
+.t5-demand-num{display:block;font-size:16px;font-weight:700;color:var(--navy)}
+.t5-demand-num small{font-size:12px;font-weight:400;color:var(--grey)}
+.t5-demand-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--grey)}
+.t5-prov{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.t5-field{margin-bottom:8px}
+.t5-field-label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--grey);margin-bottom:2px}
+.t5-field-body{font-size:13px;color:var(--text);line-height:1.45}
+.t5-notes .t5-field-body{color:#6B5B00;background:#FFFBEB;padding:6px 8px;border-radius:4px;border-left:2px solid #F59E0B;font-size:12px}
+.horizon-pill{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.horizon-pill.now{background:var(--navy);color:#fff}
+.horizon-pill.next{background:#1B5E8A;color:#fff}
+.horizon-pill.later{background:#546E7A;color:#fff}
+.horizon-pill.assess{background:var(--amber);color:#fff}
+@media(max-width:700px){
+  .t5-demand{grid-template-columns:repeat(2,1fr)}
+  .t5-card{flex-direction:column}
+  .t5-rank{flex:0 0 40px;flex-direction:row}
+}
+
+/* ── Evidence sub-tabs ── */
+.ev-subtabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:18px}
+.ev-subtab-btn{padding:8px 16px;background:none;border:none;font-family:var(--font);font-size:12px;font-weight:600;color:var(--grey);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s}
+.ev-subtab-btn:hover{color:var(--navy-mid)}
+.ev-subtab-btn.active{color:var(--navy);border-bottom-color:var(--navy-mid);font-weight:700}
+.ev-subtab-panel{display:none}
+.ev-subtab-panel.active{display:block}
+
+/* ── Hover tooltips (shared) ── */
+[data-tip]{position:relative;cursor:help}
+[data-tip]:hover::after,[data-tip]:focus::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 8px);left:50%;
+  transform:translateX(-50%);
+  background:#1F2937;color:#F9FAFB;
+  padding:8px 11px;border-radius:5px;
+  font-size:11px;font-weight:400;letter-spacing:0;text-transform:none;
+  line-height:1.45;white-space:normal;width:280px;text-align:left;
+  z-index:200;pointer-events:none;
+  box-shadow:0 6px 20px rgba(0,0,0,.22);
+}
+[data-tip]:hover::before,[data-tip]:focus::before{
+  content:'';position:absolute;bottom:calc(100% + 2px);left:50%;
+  transform:translateX(-50%);border:6px solid transparent;
+  border-top-color:#1F2937;z-index:200;pointer-events:none;
+}
+
+/* ── Key & Glossary tab ── */
+.key-intro{font-size:13px;color:#333;margin-bottom:22px;line-height:1.65;max-width:920px;background:var(--navy-pale);border-left:3px solid var(--navy-mid);padding:14px 18px;border-radius:4px}
+.key-intro strong{color:var(--navy)}
+.key-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:22px 24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.key-section-title{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;padding-bottom:10px;border-bottom:2px solid var(--navy-pale)}
+.key-section-num{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--navy);color:#fff;border-radius:50%;font-size:12px;font-weight:700}
+.key-section-sub{font-size:13px;color:var(--grey);margin:12px 0 16px;line-height:1.55;max-width:900px}
+.key-section-sub strong{color:var(--navy)}
+.key-section-sub em{color:#333;font-style:italic}
+.key-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:6px}
+.key-grid.cols-2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.key-item{display:flex;flex-direction:column;gap:8px;padding:14px 14px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;min-height:104px;white-space:normal;overflow-wrap:break-word;word-wrap:break-word}
+.key-item-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:22px;white-space:normal}
+.key-item-def{font-size:13px;color:#333;line-height:1.5;white-space:normal;overflow-wrap:break-word;word-wrap:break-word}
+.key-sample-swatch{display:inline-block;width:22px;height:14px;border-radius:3px;flex-shrink:0;border:1px solid rgba(0,0,0,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.key-label-strong{font-weight:700;color:var(--navy);font-size:13px;line-height:1.25}
+
+/* Variant accents for section 2 (activity types): use background tints */
+.key-item.v-members   {background:var(--blue-bg);border-color:#93C5FD}
+.key-item.v-crg       {background:var(--purple-bg);border-color:#CBA4DA}
+.key-item.v-collab    {background:var(--green-bg);border-color:#9CCF7F}
+.key-item.v-collab-auth{background:var(--teal-bg);border-color:#80CBC4}
+.key-item.v-qa        {background:var(--orange-bg);border-color:#F4B78E}
+.key-item.v-wg        {background:var(--pink-bg);border-color:#F4ADC6}
+.key-item.v-plan      {background:var(--amber-bg);border-color:#FFD966;border-style:dashed}
+.key-item.v-assess    {background:var(--grey-bg);border-color:#CFCFCF;border-style:dashed}
+
+.key-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px;table-layout:fixed}
+.key-table col.col-narrow{width:22%}
+.key-table col.col-mid{width:30%}
+.key-table th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.key-table th:first-child{border-top-left-radius:5px}
+.key-table th:last-child{border-top-right-radius:5px}
+.key-table td{padding:10px 12px;border-bottom:1px solid #EEF0F3;vertical-align:top;line-height:1.5;word-wrap:break-word}
+.key-table tr:last-child td{border-bottom:none}
+.key-table tbody tr:nth-child(even) td{background:#FAFBFC}
+.key-table tbody tr:hover td{background:var(--navy-pale)}
+.key-table td code{font-family:Consolas,'Courier New',monospace;font-size:11.5px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:3px;color:#1F2937;white-space:nowrap}
+.key-table td .si-badge,
+.key-table td .card-trigger,
+.key-table td .prov-chip,
+.key-table td .nature-badge{margin:0;vertical-align:middle}
+.key-table td .card-trigger{margin-left:0}
+.key-footnote{font-size:11px;color:var(--grey);font-style:italic;margin-top:12px;padding-top:10px;border-top:1px dashed #E5E8ED}
+.key-footnote code{font-style:normal;background:rgba(0,0,0,.05);padding:1px 5px;border-radius:3px;font-family:Consolas,'Courier New',monospace;font-size:11px}
+
+/* ── Evidence tab ── */
+.evidence-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.evidence-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.ev-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.ev-sub{font-size:11px;color:var(--grey);margin-bottom:14px}
+.ev-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #F0F0F0;font-size:12px}
+.ev-row:last-child{border-bottom:none}
+.ev-rank{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ev-rank.top{background:var(--navy-mid)}
+.ev-bar{flex:1;height:6px;background:var(--navy-light);border-radius:3px;overflow:hidden}
+.ev-bar-fill{height:100%;background:var(--navy-mid);border-radius:3px}
+.ev-val{font-size:11px;color:var(--grey);width:40px;text-align:right;flex-shrink:0}
+.ev-topic{width:180px;flex-shrink:0;font-weight:500}
+.theme-strip{display:flex;flex-direction:column;gap:8px}
+.ts-item{display:flex;gap:10px;padding:8px 10px;border-radius:6px;font-size:12px}
+.ts-item.warn{background:#FFF5F0;border-left:3px solid var(--orange)}
+.ts-item:not(.warn){background:var(--navy-pale);border-left:3px solid var(--navy-mid)}
+.ts-num{font-weight:700;color:var(--navy);flex-shrink:0}
+.ts-body{line-height:1.4;color:#333}
+.ts-quote{font-style:italic;color:var(--orange);margin-top:4px;font-size:11px}
+
+/* Events summary */
+.events-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.event-card{border-radius:8px;padding:14px 16px;border:1px solid transparent}
+.event-card.seoul  {background:#EFF6FF;border-color:#BFDBFE}
+.event-card.antwerp{background:#FFF7ED;border-color:#FED7AA}
+.event-card.vienna {background:#F0FDF4;border-color:#BBF7D0}
+.event-title{font-size:12px;font-weight:800;margin-bottom:3px}
+.event-title.seoul  {color:#1D4ED8}
+.event-title.antwerp{color:#C2410C}
+.event-title.vienna {color:#15803D}
+.event-meta{font-size:11px;color:var(--grey);margin-bottom:6px}
+.event-body{font-size:11px;color:#333;line-height:1.5}
+
+/* ── Capacity split chart ── */
+.capacity-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.05);margin-top:20px}
+.cap-chart-wrap{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.cap-donut{flex:0 0 180px;display:flex;align-items:center;justify-content:center}
+.cap-svg{width:180px;height:180px}
+.cap-legend{flex:1;display:flex;flex-direction:column;gap:6px;min-width:200px}
+.cap-legend-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;padding:6px 0;border-bottom:1px solid #F0F0F0}
+.cap-legend-item:last-child{border-bottom:none}
+.cap-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:2px}
+.cap-legend-label{flex:1;color:var(--text);font-weight:600}
+.cap-legend-desc{display:block;font-size:10px;font-weight:400;color:var(--grey);margin-top:1px}
+.cap-legend-count{display:block;font-size:10px;font-weight:400;color:var(--grey)}
+.cap-legend-pct{font-size:18px;font-weight:800;color:var(--navy);min-width:48px;text-align:right;flex-shrink:0}
+@media(max-width:600px){
+  .cap-chart-wrap{flex-direction:column;align-items:flex-start}
+  .cap-donut{flex:0 0 auto}
+}
+
+/* How we prioritise tab */
+.commitment-box{background:var(--navy-pale);border:1px solid var(--navy-mid);border-radius:8px;padding:14px 18px;margin-bottom:18px;font-size:12px}
+.commitment-box strong{color:var(--navy)}
+.qa-explainer{background:var(--orange-bg);border:1px solid #F4B78E;border-radius:8px;padding:14px 18px;margin-bottom:18px;font-size:12px;color:#4A1800}
+.qa-explainer strong{color:var(--orange)}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.criteria-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.criteria-table th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-size:12px}
+.criteria-table td{padding:8px 12px;border-bottom:1px solid #E5E8ED;vertical-align:top}
+.criteria-table tr:last-child td{border-bottom:none}
+.criteria-table tbody tr:hover td{background:var(--navy-pale)}
+
+/* ── Timeline tab: cell-grid Gantt ── */
+.tl-intro{font-size:13px;color:var(--grey);margin-bottom:16px;line-height:1.6}
+.tl-note{font-size:10px;color:#bbb;margin-top:10px;font-style:italic}
+.timeline-outer{overflow-x:auto;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.timeline-grid{min-width:960px}
+.tl-header-row{display:grid;grid-template-columns:240px repeat(6,1fr);border-bottom:2px solid var(--navy)}
+.tl-theme-row{display:grid;grid-template-columns:240px 2fr 2fr 1fr 1fr;border-bottom:1px solid var(--border);background:var(--teal-bg)}
+.tl-theme-topic-hdr{padding:8px 14px;font-weight:700;font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:.3px;background:var(--navy-pale);border-right:1px solid var(--border);display:flex;align-items:center;line-height:1.2}
+.tl-theme-cell{padding:6px 8px;text-align:center;border-right:1px solid #B2DFDB;display:flex;flex-direction:column;justify-content:center;gap:2px;line-height:1.2;cursor:help}
+.tl-theme-cell:last-child{border-right:none}
+.tl-theme-year{font-size:11px;font-weight:800;color:var(--teal-dk);letter-spacing:.3px}
+.tl-theme-label{font-size:10.5px;font-weight:600;color:var(--navy)}
+.tl-topic-hdr{padding:10px 14px;font-weight:700;font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.3px;background:var(--navy-pale)}
+.tl-period{padding:10px 8px;font-weight:700;font-size:11px;text-align:center;color:#fff;line-height:1.25}
+.tl-period.now-period{background:var(--navy)}
+.tl-period.near-period{background:#1B5E8A}
+.tl-period.mid-period{background:#2E7D52}
+.tl-period.long-period{background:#555}
+.tl-sub{display:block;font-size:9px;font-weight:400;opacity:.85;margin-top:2px}
+.tl-row{display:grid;grid-template-columns:240px repeat(6,1fr);border-bottom:1px solid #E5E8ED;min-height:40px;align-items:center}
+.tl-row:last-child{border-bottom:none}
+.tl-row:hover{background:var(--navy-pale)}
+.tl-topic-cell{padding:8px 14px;font-size:12px;font-weight:600;color:var(--navy)}
+.tl-topic-type{display:block;font-size:10px;font-weight:400;color:var(--grey);margin-top:2px}
+.tl-cell{padding:4px 6px;text-align:center;position:relative}
+.tl-bar{height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;overflow:hidden;padding:0 6px}
+.tl-bar.crg{background:var(--purple-bar)}
+.tl-bar.collab{background:var(--green-bar)}
+.tl-bar.collab-auth{background:var(--teal-bar)}
+.tl-bar.qa{background:var(--orange-bar)}
+.tl-bar.wg{background:#D81B60}
+.tl-bar.members{background:var(--blue-bar)}
+.tl-bar.plan{background:#FFC000;color:#5C3D00}
+.tl-bar.assess{background:#BFBFBF;color:#333}
+.tl-bar.span-end{border-radius:4px}
+.tl-bar.ongoing{border-radius:4px 0 0 4px}
+.tl-bar.start{border-radius:0 4px 4px 0}
+.tl-bar.mid{border-radius:0}
+.tl-empty{height:20px}
+.tl-group-label{grid-column:1 / -1;background:var(--navy-pale);padding:7px 14px;font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);border-top:1px solid var(--border)}
+.tl-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--grey);margin-top:12px;padding:10px 14px;background:#fff;border:1px solid var(--border);border-radius:6px}
+.tl-legend-dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:6px}
+
+footer{background:var(--navy);color:#9CC3E5;text-align:center;padding:16px 40px;font-size:12px;margin-top:40px}
+footer a{color:#BDD8F0}
+
+@media(max-width:960px){
+  .horizon-board,.evidence-cols,.pillars-grid,.events-strip{grid-template-columns:1fr}
+  header,.draft-banner,.pillars-wrap,.nav-wrap,.main,footer{padding-left:16px;padding-right:16px}
+}
+</style>
+<style data-emotion="css" data-s=""></style></head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div style="display:flex;align-items:center;gap:14px">
+      <img class="logo-img" src="snomed-logo.png" alt="SNOMED International">
+      <div class="header-title">Content Development Roadmap</div>
+    </div>
+    <div class="header-right">
+      <strong>SNOMED International · May 2026</strong>
+      &nbsp;<span class="live-badge">Live</span>
+    </div>
+  </div>
+</header>
+
+<div class="draft-banner">
+  <div class="draft-banner-inner">
+    ⚠ <strong>Working draft · May 2026:</strong> Content priorities and timelines confirmed with SNOMED International Authoring Team. Subject to revision at each IE release.
+  </div>
+</div>
+
+<div class="pillars-wrap">
+  <div class="pillars-inner">
+    <div class="pillars-intro">SNOMED International's content development strategy is guided by three priorities:</div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-num">Priority 1</div>
+        <div class="pillar-title">Deepen active collaborations</div>
+        <div class="pillar-body">Sustain and expand work with external partners (including LOINC, AJCC, Orphanet, WHO, HPO) to build content with authoritative domain expertise rather than in isolation.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">Priority 2</div>
+        <div class="pillar-title">Address the highest-priority member gaps</div>
+        <div class="pillar-body">Respond to content gaps members have consistently ranked highest (drug extension model, mental health, imaging) through new projects and collaborations.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">Priority 3</div>
+        <div class="pillar-title">Strengthen existing content</div>
+        <div class="pillar-body">Improve the reliability of content members already depend on. Areas selected for focused work are evidence-led (drawn from member implementation experience, CRG review, and editorial audit) and published in advance so national implementations can plan rather than react.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <button class="tab-btn active" onclick="showTab(&#39;top5&#39;,this)">Top 5 Member Priorities</button>
+    <button class="tab-btn" onclick="showTab(&#39;board&#39;,this)">Roadmap</button>
+    <button class="tab-btn" onclick="showTab(&#39;timeline&#39;,this)">Timeline</button>
+    <button class="tab-btn" onclick="showTab(&#39;evidence&#39;,this)">Member Evidence</button>
+    <button class="tab-btn" onclick="showTab(&#39;process&#39;,this)">How We Prioritise</button>
+    <button class="tab-btn" onclick="showTab(&#39;key&#39;,this)">Key &amp; Glossary</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ── TAB 1: ROADMAP BOARD ── -->
+<div id="tab-board" class="tab-panel">
+
+  <div class="filter-bar">
+    <div class="filter-block">
+      <span class="filter-label">Origin</span>
+      <div class="filter-group">
+        <button class="f-btn active" onclick="setFilter(&#39;origin&#39;,&#39;all&#39;,this)">All</button>
+        <button class="f-btn" onclick="setFilter(&#39;origin&#39;,&#39;seoul&#39;,this)">Seoul '24</button>
+        <button class="f-btn" onclick="setFilter(&#39;origin&#39;,&#39;antwerp&#39;,this)">Antwerp '25</button>
+        <button class="f-btn" onclick="setFilter(&#39;origin&#39;,&#39;vienna&#39;,this)">Vienna '26</button>
+      </div>
+    </div>
+    <div class="filter-block">
+      <span class="filter-label">SI status</span>
+      <div class="filter-group">
+        <button class="f-btn active" onclick="setFilter(&#39;si&#39;,&#39;all&#39;,this)">All</button>
+        <button class="f-btn" onclick="setFilter(&#39;si&#39;,&#39;in-delivery&#39;,this)">Active</button>
+        <button class="f-btn" onclick="setFilter(&#39;si&#39;,&#39;planned&#39;,this)">Planned</button>
+        <button class="f-btn" onclick="setFilter(&#39;si&#39;,&#39;no-activity&#39;,this)">No activity yet</button>
+      </div>
+    </div>
+    <div class="filter-block">
+      <span class="filter-label">Activity type</span>
+      <div class="filter-group">
+        <button class="f-btn active" onclick="setFilter(&#39;type&#39;,&#39;all&#39;,this)">All</button>
+        <button class="f-btn" onclick="setFilter(&#39;type&#39;,&#39;members&#39;,this)">Member-Driven</button>
+        <button class="f-btn" onclick="setFilter(&#39;type&#39;,&#39;collab&#39;,this)">Collaboration</button>
+        <button class="f-btn" onclick="setFilter(&#39;type&#39;,&#39;crg&#39;,this)">CRG</button>
+        <button class="f-btn" onclick="setFilter(&#39;type&#39;,&#39;collab-auth&#39;,this)">Collab. Authoring</button>
+        <button class="f-btn" onclick="setFilter(&#39;type&#39;,&#39;qa&#39;,this)">QA Programme</button>
+        <button class="f-btn" onclick="setFilter(&#39;type&#39;,&#39;wg&#39;,this)">Working Group</button>
+      </div>
+    </div>
+    <div class="filter-meta">
+      <span class="filter-count" id="filter-count"></span>
+      <button class="filter-reset" id="filter-reset" onclick="resetFilters()" hidden="">Reset filters</button>
+    </div>
+  </div>
+
+  <div class="colour-key">
+    <span class="key-label">Card colour:</span>
+    <span class="key-item"><span class="key-swatch members"></span>Member-Driven</span>
+    <span class="key-item"><span class="key-swatch crg"></span>Clinical Reference Group (CRG)</span>
+    <span class="key-item"><span class="key-swatch collab"></span>Collaboration / Extension</span>
+    <span class="key-item"><span class="key-swatch collab-auth"></span>Collaborative Authoring</span>
+    <span class="key-item"><span class="key-swatch qa"></span>QA Programme</span>
+    <span class="key-item"><span class="key-swatch wg"></span>Working Group</span>
+    <span class="key-item"><span class="key-swatch assessing"></span>Under Assessment</span>
+  </div>
+
+  <div class="horizon-board">
+
+      <div class="horizon-col">
+        <div class="horizon-header now">
+          <div>
+            <div class="horizon-label">Now</div>
+            <div class="horizon-sub">Work currently active</div>
+          </div>
+          <div class="horizon-count">11</div>
+        </div>
+        <div class="horizon-items">
+          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Substances</div>
+            <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Substances identified by the EMA being added as identified</div><div class="card-progress">Substances from national extensions have been promoted.  EMA substances being added.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Substances needed to define clinical drugs.</div>
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #2</span></div>
+          </div>
+          <div class="rm-card wg" data-si="in-delivery" data-type="wg" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Drug extension model</div>
+            <span class="card-type-label type-wg">Working Group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#39;s roadmap before members raised it.">Member-driven (started)</span>
+            <div class="card-activity">Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div><div class="card-progress">Issues being addressed by the DEUSG.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div>
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #4</span></div>
+          </div>
+          <div class="rm-card qa" data-si="in-delivery" data-type="qa" data-seoul="1" data-antwerp="1" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Surgical procedures</div>
+            <span class="card-type-label type-qa">QA Programme</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Being addressed as part of QA</div><div class="card-progress">Updates to modeling performed for endoscopy, surgical replacement, stoma procedures, radical excision.  Revision of bypass procedures, reattachment underway.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Suggestion that there were significant gaps in the surgical procedure hierarchy.</div>
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #5</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+          </div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Cancer</div>
+            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">AJCC/UICC collaborations;
+Cancer synoptic reporting WG;
+ICCR collaboration
+Histology Quality Project</div><div class="card-progress">All current AJCC and UICC content have been added to the International release. Cancer synoptyic reporting observables created. Review of current neoplasm…</div>
+            
+            <div class="card-milestone"><span class="ms-label">Next:</span> Annual updates from AJCC and UICC provided to SI - November 2026</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #7</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          </div>
+          <div class="rm-card wg" data-si="in-delivery" data-type="wg" data-seoul="1" data-antwerp="1" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Organisms</div>
+            <span class="card-type-label type-wg">Working Group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#39;s roadmap before members raised it.">Member-driven (started)</span>
+            <div class="card-activity">Microbiology Working Group</div><div class="card-progress">Over 800 organisms (bacteria and viruses) were promoted from national extensions.  Following the completion of that work the group was sunsetted.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Addition of new organism content from extensions.  Updating antimicrobial senstiivity concepts. Addition of new bacterial morphology concepts.</div>
+            <div class="card-milestone"><span class="ms-label">Next:</span> Formation of project group - June 2026</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #8</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+          </div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Social determinants of health</div>
+            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Gravity project participation</div><div class="card-progress">Backlog of requests completed; ongoing requests as needed. Now BAU</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #9</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+          </div>
+          <div class="rm-card planning" data-si="in-delivery" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="1">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Mental health</div>
+            <span class="card-type-label type-planning">Project group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Formation and organization of Mental Health Project Group.</div><div class="card-progress">Formation of Mental Health Project.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Improve currency and quality of mental health disorders</div>
+            <div class="card-milestone"><span class="ms-label">Next:</span> Q4 2026
+Identification of work area priorities.
+Review and revision of bipolar disorder</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #11</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          </div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Rare diseases</div>
+            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">InSerm/Orphanet collaboration</div><div class="card-progress">Continued addition and updating of rare diseases at the disorder level.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Addition of rare disease subtypes.</div>
+            <div class="card-milestone"><span class="ms-label">Next:</span> 2026
+Determination of whether disease subtypes canbe added</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #14</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          </div>
+          <div class="rm-card planning" data-si="in-delivery" data-type="planning" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Epilepsy</div>
+            <span class="card-type-label type-planning">Project group</span><span class="nature-badge nature-project">Project</span>
+            <div class="card-activity">Update of content to alingn with ILAE classifications</div><div class="card-progress">Most seizures and epileptic diseases have been reviewed and remodeled to conform to ILAE guidelines.</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">SI Initiated</span></div>
+          </div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">MedDRA</div>
+            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span>
+            <div class="card-activity">Collaboration to create and maintain bi-directional maps between SNOMED CT and MedDRA</div><div class="card-progress">Published updated map</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">SI Collaboration</span></div>
+          </div>
+          <div class="rm-card qa" data-si="in-delivery" data-type="qa" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Anatomy</div>
+            <span class="card-type-label type-qa">QA Programme</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span>
+            <div class="card-activity">Long-term, foundational initiative to overhaul and standardize the Body Structure hierarchy in SNOMED CT.</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">QA Programme</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="horizon-col">
+        <div class="horizon-header next">
+          <div>
+            <div class="horizon-label">Next</div>
+            <div class="horizon-sub">Work planned to start</div>
+          </div>
+          <div class="horizon-count">3</div>
+        </div>
+        <div class="horizon-items">
+          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="1" data-antwerp="1" data-vienna="1">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Imaging</div>
+            <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Addressed as part of the QA programme
+Radiology project launched April 2026</div><div class="card-progress">Radiography hierarchy has been reviewed and updated.  Imaging content from national extensions currently being promoted to the International release. Formation…</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Increase quality and coverage for imaging procedures.  Reduce backlog of imaging content requests,; promote content from extensions.</div>
+            <div class="card-milestone"><span class="ms-label">Next:</span> 2026-27 
+Review of new content proposals from members; deduplication and addition to the…</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #3</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          </div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Genomics</div>
+            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Working with HPO. Review of candidate map; identification of scope; editorial guidance; content addition</div><div class="card-progress">Content addition begun.
+Map validation underway</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Coverage of phenotypes, molecular diagnostics.</div>
+            <div class="card-milestone"><span class="ms-label">Next:</span> Q3 2026 
+Editorial principles
+Measurement findings added</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #16</span></div>
+          </div>
+          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Kidney biopsy codes</div>
+            <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span>
+            <div class="card-activity">Update of content in the SNOMED CT International release to provide clinical codes for describing both morphological…</div><div class="card-progress">Collaborative authors in training</div>
+            
+            <div class="card-milestone"><span class="ms-label">Next:</span> External authors trained - Q4 2026</div>
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">Collab. Authoring</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="horizon-col">
+        <div class="horizon-header later">
+          <div>
+            <div class="horizon-label">Later</div>
+            <div class="horizon-sub">Scoped for a future cycle</div>
+          </div>
+          <div class="horizon-count">1</div>
+        </div>
+        <div class="horizon-items">
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Laboratory (observations)</div>
+            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">LOINC/NPU collaboration</div><div class="card-progress">Three releases of the LOINC extension has been published.  More than 45,000 laboratory obsevables covering &gt;97% of laboratory results included.</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Increase coverage of laboratory observations.  Content increased by 45,000 terms in latest LOINC extension.</div>
+            <div class="card-milestone"><span class="ms-label">Next:</span> Next release of LOINC extension to include some molecular diagnostics.  September 2026</div>
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #1</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="horizon-col">
+        <div class="horizon-header assess">
+          <div>
+            <div class="horizon-label">Under Assessment</div>
+            <div class="horizon-sub">No timeline yet · being evaluated</div>
+          </div>
+          <div class="horizon-count">10</div>
+        </div>
+        <div class="horizon-items"><div class="assess-sub-head">Paused<span class="assess-sub-count">3</span></div>
+          <div class="rm-card assessing" data-si="paused" data-type="crg" data-seoul="0" data-antwerp="1" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span></div>
+            <div class="card-title">Allergies</div>
+            <span class="card-type-label type-assessing">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span>
+            <div class="card-activity">Allergy CRG</div><div class="card-progress">No activity by the CRG since early 2024</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="paused" data-type="collab" data-seoul="0" data-antwerp="1" data-vienna="1">
+            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span></div>
+            <div class="card-title">ICD-11 alignment</div>
+            <span class="card-type-label type-assessing">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">SNOMED/WHO collaboration discussions</div><div class="card-progress">No progress on determining a path forward.</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="paused" data-type="collab-auth" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span></div>
+            <div class="card-title">Microbiology</div>
+            <span class="card-type-label type-assessing">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span>
+            <div class="card-activity">Project raised by Denmark that they have content at MF January 2026</div><div class="card-progress">Promotion of extension content to the International release</div>
+            
+            <div class="card-milestone"><span class="ms-label">Next:</span> Awaiting project proposal from Denmark</div>
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">Collab. Authoring</span></div>
+          </div><div class="assess-sub-head">Declined (with reason)<span class="assess-sub-count">1</span></div>
+          <div class="rm-card assessing" data-si="deferred" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-deferred">Deferred</span><span class="gap-warn" title="High member demand with no active SI delivery">⚠ Gap</span></div>
+            <div class="card-title">Preventive care (incl. vaccines)</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-declined" data-tip="Declined (with reason) · Member request considered and deliberately not taken up this cycle. Rationale is on file; members can re-raise next cycle.">Declined (with reason)</span>
+            <div class="card-activity">No dedicated project: listed as HIGH priority gap (Nov 2024 deck)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #6</span></div>
+          </div><div class="assess-sub-head">Not yet assessed<span class="assess-sub-count">6</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="gap-warn" title="High member demand with no active SI delivery">⚠ Gap</span></div>
+            <div class="card-title">Interventions</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+            <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #10</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+            <div class="card-title">Measurement procedures</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+            <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #12</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+            <div class="card-title">Functioning</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+            <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #13</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+            <div class="card-title">Outpatient procedures</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+            <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #15</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+            <div class="card-title">Cardiology disorders</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+            <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #17</span></div>
+          </div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+            <div class="card-title">Surveillance</div>
+            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+            <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)
+(Zero survey responses)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #19</span></div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+    <div class="delivered-section">
+      <div class="delivered-header">In Maintenance
+        <span class="delivered-count">6</span>
+      </div>
+      <div class="delivered-grid">
+          <div class="rm-card collab" data-si="delivered" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span></div>
+            <div class="card-title">Veterinary medicine</div>
+            <span class="card-type-label type-collab">Extension</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            <div class="card-activity">Promotion to extension in community content area
+(VetSCT: communication with owners underway)</div><div class="card-progress">First formal extension released</div>
+            <div class="card-asked"><span class="asked-label">Members asked for:</span> Create a formal veterinary extension</div>
+            
+            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #18</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+          </div>
+          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Dentistry</div>
+            <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span>
+            <div class="card-activity">Dentistry CRG</div><div class="card-progress">Addition of dental radiology
+Update general dentistry refset
+Update of odontogram refset
+Update of dentistry procedures</div>
+            
+            <div class="card-milestone"><span class="ms-label">Next:</span> End of 2026
+Addition of international caries detection and assessment system
+Additional dental…</div>
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">CRG</span></div>
+          </div>
+          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Nutrition</div>
+            <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span>
+            <div class="card-activity">Nutrition CRG</div><div class="card-progress">Update of NCPT refset to include all of NCPT terminology.
+Update of obesity terminology</div>
+            
+            <div class="card-milestone"><span class="ms-label">Next:</span> 2026-2027
+Resolution of BMI issues
+Dietary findings review
+Dietary products</div>
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">CRG</span></div>
+          </div>
+          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+            <div class="card-title">Ophthalmology</div>
+            <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span>
+            <div class="card-activity">Ophthalmology CRG</div><div class="card-progress">Review of glaucoma
+Addition of devices
+Lateralitzed content</div>
+            
+            <div class="card-milestone"><span class="ms-label">Next:</span> 2026
+Final report of glaucoma to Int'l societies
+Review of nystagmus</div>
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">CRG</span></div>
+          </div>
+          <div class="rm-card members" data-si="delivered" data-type="members" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span></div>
+            <div class="card-title">Member Content Requests (CRS)</div>
+            <span class="card-type-label type-members">Members</span><span class="nature-badge nature-continuous">Continuous</span>
+            <div class="card-activity">Ongoing pipeline of content change requests submitted by member NRCs via JIRA CRS. Includes new concept requests,…</div><div class="card-progress">Initiated by: Member NRCs (via JIRA CRS)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">Member-Driven</span></div>
+          </div>
+          <div class="rm-card members" data-si="delivered" data-type="members" data-seoul="0" data-antwerp="0" data-vienna="0">
+            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span></div>
+            <div class="card-title">Translation Group Requests</div>
+            <span class="card-type-label type-members">Members</span><span class="nature-badge nature-continuous">Continuous</span>
+            <div class="card-activity">Content additions and changes requested by national translation teams to support extension and national release work.…</div><div class="card-progress">Initiated by: National translation teams (internal to SI or member NRCs)</div>
+            
+            
+            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">Member-Driven</span></div>
+          </div>
+      </div>
+    </div>
+</div>
+
+<!-- ── TAB 1: TOP 5 PRIORITIES ── -->
+<div id="tab-top5" class="tab-panel active">
+
+  <p class="t5-intro">
+    The five highest-priority active content projects for 2026, ranked by member
+    demand from the December 2024 survey (n=23) and validated against workshop
+    signals from Seoul 2024, Antwerp 2025, and Vienna 2026. Projects already in
+    maintenance or not yet started are excluded.
+  </p>
+  <div class="t5-list">
+    
+      <div class="t5-card">
+        <div class="t5-rank">1</div>
+        <div class="t5-body">
+          <div class="t5-header">
+            <div class="t5-title">Laboratory (observations)</div>
+            <div class="t5-meta">
+              <span class="si-badge badge-delivery">Active</span>
+              <span class="t5-horizon horizon-pill later">Later</span>
+              <span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            </div>
+          </div>
+          <div class="t5-demand">
+            <div class="t5-demand-item"><span class="t5-demand-num">1</span><span class="t5-demand-label">Survey rank</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">13<small>/23</small></span><span class="t5-demand-label">Responses</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">57%</span><span class="t5-demand-label">Response rate</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">SSA/PWI</span><span class="t5-demand-label">Owner</span></div>
+          </div>
+          <div class="t5-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #1</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          <div class="t5-field"><span class="t5-field-label">Current SI activity</span><div class="t5-field-body">LOINC/NPU collaboration</div></div><div class="t5-field"><span class="t5-field-label">Progress</span><div class="t5-field-body">Three releases of the LOINC extension has been published.  More than 45,000 laboratory obsevables covering &gt;97% of laboratory results included.</div></div>
+          <div class="t5-field"><span class="t5-field-label">Members asked for</span><div class="t5-field-body">Increase coverage of laboratory observations.  Content increased by 45,000 terms in latest LOINC extension.</div></div>
+          <div class="t5-field"><span class="t5-field-label">Next milestone</span><div class="t5-field-body">Next release of LOINC extension to include some molecular diagnostics.  September 2026</div></div>
+          <div class="t5-field t5-notes"><span class="t5-field-label">Notes / risks</span><div class="t5-field-body">Transfer of major responsibilites to RII with limited resources may slow progress.  Identification of gaps needed to focus content development.</div></div>
+        </div>
+      </div>
+      <div class="t5-card">
+        <div class="t5-rank">2</div>
+        <div class="t5-body">
+          <div class="t5-header">
+            <div class="t5-title">Imaging</div>
+            <div class="t5-meta">
+              <span class="si-badge badge-delivery">Active</span>
+              <span class="t5-horizon horizon-pill next">Next</span>
+              <span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            </div>
+          </div>
+          <div class="t5-demand">
+            <div class="t5-demand-item"><span class="t5-demand-num">3</span><span class="t5-demand-label">Survey rank</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">11<small>/23</small></span><span class="t5-demand-label">Responses</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">48%</span><span class="t5-demand-label">Response rate</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">MBR</span><span class="t5-demand-label">Owner</span></div>
+          </div>
+          <div class="t5-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #3</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          <div class="t5-field"><span class="t5-field-label">Current SI activity</span><div class="t5-field-body">Addressed as part of the QA programme
+Radiology project launched April 2026</div></div><div class="t5-field"><span class="t5-field-label">Progress</span><div class="t5-field-body">Radiography hierarchy has been reviewed and updated.  Imaging content from national extensions currently being promoted to the International release. Formation of radiology project group will define additional requirements and content development needs.</div></div>
+          <div class="t5-field"><span class="t5-field-label">Members asked for</span><div class="t5-field-body">Increase quality and coverage for imaging procedures.  Reduce backlog of imaging content requests,; promote content from extensions.</div></div>
+          <div class="t5-field"><span class="t5-field-label">Next milestone</span><div class="t5-field-body">2026-27 
+Review of new content proposals from members; deduplication and addition to the international release</div></div>
+          <div class="t5-field t5-notes"><span class="t5-field-label">Notes / risks</span><div class="t5-field-body">Radiology project group formed.</div></div>
+        </div>
+      </div>
+      <div class="t5-card">
+        <div class="t5-rank">3</div>
+        <div class="t5-body">
+          <div class="t5-header">
+            <div class="t5-title">Drug extension model</div>
+            <div class="t5-meta">
+              <span class="si-badge badge-delivery">Active</span>
+              <span class="t5-horizon horizon-pill now">Now</span>
+              <span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#39;s roadmap before members raised it.">Member-driven (started)</span>
+            </div>
+          </div>
+          <div class="t5-demand">
+            <div class="t5-demand-item"><span class="t5-demand-num">4</span><span class="t5-demand-label">Survey rank</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">10<small>/23</small></span><span class="t5-demand-label">Responses</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">43%</span><span class="t5-demand-label">Response rate</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">MHA/KLI</span><span class="t5-demand-label">Owner</span></div>
+          </div>
+          <div class="t5-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #4</span></div>
+          <div class="t5-field"><span class="t5-field-label">Current SI activity</span><div class="t5-field-body">Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div></div><div class="t5-field"><span class="t5-field-label">Progress</span><div class="t5-field-body">Issues being addressed by the DEUSG.</div></div>
+          <div class="t5-field"><span class="t5-field-label">Members asked for</span><div class="t5-field-body">Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div></div>
+          
+          <div class="t5-field t5-notes"><span class="t5-field-label">Notes / risks</span><div class="t5-field-body">Issues being addressed by the DEUSG. 
+Risk- Lack of consensus from DEUSG.</div></div>
+        </div>
+      </div>
+      <div class="t5-card">
+        <div class="t5-rank">4</div>
+        <div class="t5-body">
+          <div class="t5-header">
+            <div class="t5-title">Surgical procedures</div>
+            <div class="t5-meta">
+              <span class="si-badge badge-delivery">Active</span>
+              <span class="t5-horizon horizon-pill now">Now</span>
+              <span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            </div>
+          </div>
+          <div class="t5-demand">
+            <div class="t5-demand-item"><span class="t5-demand-num">5</span><span class="t5-demand-label">Survey rank</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">9<small>/23</small></span><span class="t5-demand-label">Responses</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">39%</span><span class="t5-demand-label">Response rate</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">VME</span><span class="t5-demand-label">Owner</span></div>
+          </div>
+          <div class="t5-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #5</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+          <div class="t5-field"><span class="t5-field-label">Current SI activity</span><div class="t5-field-body">Being addressed as part of QA</div></div><div class="t5-field"><span class="t5-field-label">Progress</span><div class="t5-field-body">Updates to modeling performed for endoscopy, surgical replacement, stoma procedures, radical excision.  Revision of bypass procedures, reattachment underway.</div></div>
+          <div class="t5-field"><span class="t5-field-label">Members asked for</span><div class="t5-field-body">Suggestion that there were significant gaps in the surgical procedure hierarchy.</div></div>
+          
+          <div class="t5-field t5-notes"><span class="t5-field-label">Notes / risks</span><div class="t5-field-body">Primary risk is lack of specifics around potnetial gaps in coverage.</div></div>
+        </div>
+      </div>
+      <div class="t5-card">
+        <div class="t5-rank">5</div>
+        <div class="t5-body">
+          <div class="t5-header">
+            <div class="t5-title">Cancer</div>
+            <div class="t5-meta">
+              <span class="si-badge badge-delivery">Active</span>
+              <span class="t5-horizon horizon-pill now">Now</span>
+              <span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+            </div>
+          </div>
+          <div class="t5-demand">
+            <div class="t5-demand-item"><span class="t5-demand-num">7</span><span class="t5-demand-label">Survey rank</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">7<small>/23</small></span><span class="t5-demand-label">Responses</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">30%</span><span class="t5-demand-label">Response rate</span></div>
+            <div class="t5-demand-item"><span class="t5-demand-num">NIN/SSA/EWO</span><span class="t5-demand-label">Owner</span></div>
+          </div>
+          <div class="t5-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #7</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+          <div class="t5-field"><span class="t5-field-label">Current SI activity</span><div class="t5-field-body">AJCC/UICC collaborations;
+Cancer synoptic reporting WG;
+ICCR collaboration
+Histology Quality Project</div></div><div class="t5-field"><span class="t5-field-label">Progress</span><div class="t5-field-body">All current AJCC and UICC content have been added to the International release. Cancer synoptyic reporting observables created. Review of current neoplasm morphology content for currency is underway.</div></div>
+          
+          <div class="t5-field"><span class="t5-field-label">Next milestone</span><div class="t5-field-body">Annual updates from AJCC and UICC provided to SI - November 2026</div></div>
+          <div class="t5-field t5-notes"><span class="t5-field-label">Notes / risks</span><div class="t5-field-body">Gaps in oncology procedures are unknown.  Specific content related to oncology procedures needed.</div></div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+<!-- ── TAB 3: TIMELINE ── -->
+<div id="tab-timeline" class="tab-panel">
+
+  <p class="tl-intro">
+    Each bar shows the expected active window for a topic across six delivery
+    periods. Bars that run to the right edge are <em>ongoing</em> beyond the
+    visible horizon. Dashed / amber bars indicate planning or not-yet-started
+    work. Grey bars are under assessment.
+    The band immediately below places each year in its wider
+    <strong>2025 to 2030 Content Development Roadmap</strong> phase. 2025 (before
+    this view) focused on quality foundations and new member priorities.
+  </p>
+  <div class="timeline-outer">
+    <div class="timeline-grid">
+      <div class="tl-theme-row"><div class="tl-theme-topic-hdr">2025 to 2030 roadmap phase</div><div class="tl-theme-cell" title="Expand collaborative authoring capacity; continue delivery in member-priority domains."><span class="tl-theme-year">2026</span><span class="tl-theme-label">Collaborative authoring expansion</span></div><div class="tl-theme-cell" title="Introduce automated review across the terminology; re-evaluate member priorities at mid-point."><span class="tl-theme-year">2027</span><span class="tl-theme-label">Automated review &amp; member re-evaluation</span></div><div class="tl-theme-cell" title="Apply AI tooling to support content review, currency and the development of SNOMED 2030."><span class="tl-theme-year">2028</span><span class="tl-theme-label">AI-assisted authoring</span></div><div class="tl-theme-cell" title="Reserved for reassessment and refocus to meet evolving user needs."><span class="tl-theme-year">2029+</span><span class="tl-theme-label">Refocus &amp; evolution</span></div></div>
+      <div class="tl-header-row"><div class="tl-topic-hdr">Topic / Activity</div><div class="tl-period now-period">H1 2026<span class="tl-sub">Apr · Oct IE</span></div><div class="tl-period now-period">H2 2026<span class="tl-sub">Oct IE</span></div><div class="tl-period near-period">H1 2027<span class="tl-sub">Apr IE</span></div><div class="tl-period near-period">H2 2027<span class="tl-sub">Oct IE</span></div><div class="tl-period mid-period">2028</div><div class="tl-period long-period">2029+<span class="tl-sub">Long-term</span></div></div>
+      <div class="tl-group-label">Active Collaborations</div><div class="tl-row"><div class="tl-topic-cell">Epilepsy<span class="tl-topic-type">Project group</span></div><div class="tl-cell"><div class="tl-bar planning ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div><div class="tl-cell"><div class="tl-bar planning span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Genomics<span class="tl-topic-type">Collaboration</span></div><div class="tl-cell"><div class="tl-bar collab ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Imaging<span class="tl-topic-type">Collaborative Authoring</span></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Kidney biopsy codes<span class="tl-topic-type">Collaborative Authoring</span></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Social determinants of health<span class="tl-topic-type">Collaboration</span></div><div class="tl-cell"><div class="tl-bar collab ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Laboratory (observations)<span class="tl-topic-type">Collaboration</span></div><div class="tl-cell"><div class="tl-bar collab ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Cancer<span class="tl-topic-type">Collaboration: AJCC/UICC collaborations; · Cancer synoptic reporting WG; · ICCR collabo…</span></div><div class="tl-cell"><div class="tl-bar collab ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">MedDRA<span class="tl-topic-type">Collaboration: Collaboration to create and maintain bi-directional maps between SNOMED …</span></div><div class="tl-cell"><div class="tl-bar collab ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Mental health<span class="tl-topic-type">Project group: Formation and organization of Mental Health Project Group.</span></div><div class="tl-cell"><div class="tl-bar planning ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div><div class="tl-cell"><div class="tl-bar planning ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Rare diseases<span class="tl-topic-type">Collaboration: InSerm/Orphanet collaboration</span></div><div class="tl-cell"><div class="tl-bar collab ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Substances<span class="tl-topic-type">Collaborative Authoring: Substances identified by the EMA being added as identified</span></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div><div class="tl-cell"><div class="tl-bar collab-auth ongoing"></div></div></div><div class="tl-group-label">Clinical Reference Groups (CRGs)</div><div class="tl-row"><div class="tl-topic-cell">Ophthalmology<span class="tl-topic-type">CRG</span></div><div class="tl-cell"><div class="tl-bar crg ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar crg span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Dentistry<span class="tl-topic-type">CRG: Dentistry CRG</span></div><div class="tl-cell"><div class="tl-bar crg ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Nutrition<span class="tl-topic-type">CRG: Nutrition CRG</span></div><div class="tl-cell"><div class="tl-bar crg ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div><div class="tl-cell"><div class="tl-bar crg ongoing"></div></div></div><div class="tl-group-label">QA Programme &amp; Working Groups</div><div class="tl-row"><div class="tl-topic-cell">Surgical procedures<span class="tl-topic-type">QA Programme</span></div><div class="tl-cell"><div class="tl-bar qa ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div><div class="tl-cell"><div class="tl-bar qa span-end"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Anatomy<span class="tl-topic-type">QA Programme: Long-term, foundational initiative to overhaul and standardize the Body S…</span></div><div class="tl-cell"><div class="tl-bar qa ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div><div class="tl-cell"><div class="tl-bar qa ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Drug extension model<span class="tl-topic-type">Working Group: Additional concept model attributes to support extension specific real c…</span></div><div class="tl-cell"><div class="tl-bar wg ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Organisms<span class="tl-topic-type">Working Group: Microbiology Working Group</span></div><div class="tl-cell"><div class="tl-bar wg ongoing">Active</div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div><div class="tl-cell"><div class="tl-bar wg ongoing"></div></div></div><div class="tl-group-label">Under Assessment</div><div class="tl-row"><div class="tl-topic-cell">Allergies<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Paused</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Cardiology disorders<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Assessment</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Functioning<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Assessment</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">ICD-11 alignment<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Paused</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Interventions<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Assessment</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Measurement procedures<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Assessment</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Microbiology<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Paused</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Outpatient procedures<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Assessment</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Preventive care (incl. vaccines)<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Deferred</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Surveillance<span class="tl-topic-type">Under assessment</span></div><div class="tl-cell"><div class="tl-bar assess span-end">Assessment</div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div><div class="tl-cell"><div class="tl-empty"></div></div></div><div class="tl-group-label">In Maintenance / Ongoing</div><div class="tl-row"><div class="tl-topic-cell">Member Content Requests (CRS)<span class="tl-topic-type">Members</span></div><div class="tl-cell"><div class="tl-bar members ongoing">Maintenance</div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div></div><div class="tl-row"><div class="tl-topic-cell">Translation Group Requests<span class="tl-topic-type">Members</span></div><div class="tl-cell"><div class="tl-bar members ongoing">Maintenance</div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div><div class="tl-cell"><div class="tl-bar members ongoing"></div></div></div>
+    </div>
+  </div>
+  <div class="tl-legend"><span><span class="tl-legend-dot" style="background:var(--purple-bar)"></span>CRG</span><span><span class="tl-legend-dot" style="background:var(--green-bar)"></span>Collaboration</span><span><span class="tl-legend-dot" style="background:var(--teal-bar)"></span>Collaborative Authoring</span><span><span class="tl-legend-dot" style="background:var(--orange-bar)"></span>QA Programme</span><span><span class="tl-legend-dot" style="background:#D81B60"></span>Working Group</span><span><span class="tl-legend-dot" style="background:var(--blue-bar)"></span>Member-driven</span><span><span class="tl-legend-dot" style="background:#FFC000"></span>Planning</span><span><span class="tl-legend-dot" style="background:#BFBFBF"></span>Under Assessment</span></div>
+  <p class="tl-note">Dates are derived from Active Work timeline notes and Gap Area horizons; to be confirmed before external publication.</p>
+
+</div>
+
+<!-- ── TAB 3: MEMBER EVIDENCE ── -->
+<div id="tab-evidence" class="tab-panel">
+  <div class="ev-subtabs">
+    <button class="ev-subtab-btn active" onclick="showEvSub(&#39;overview&#39;,this)">Overview</button>
+    <button class="ev-subtab-btn" onclick="showEvSub(&#39;antwerp&#39;,this)">Antwerp '25</button>
+    <button class="ev-subtab-btn" onclick="showEvSub(&#39;vienna&#39;,this)">Vienna '26</button>
+  </div>
+
+  <div class="ev-subtab-panel active" id="evsub-overview">
+
+  <div class="events-strip">
+    <div class="event-card seoul">
+      <div class="event-title seoul">Seoul Member Forum · October 2024</div>
+      <div class="event-meta">Quantitative priority survey · n=23 member organisations · 19 content gap areas</div>
+      <div class="event-body">Members ranked content gaps they considered most urgent. Laboratory topped the list for the second consecutive year. The survey provided the quantitative backbone for prioritisation decisions.</div>
+    </div>
+    <div class="event-card antwerp">
+      <div class="event-title antwerp">Antwerp Workshop · October 2025</div>
+      <div class="event-meta">Qualitative implementation workshop · 16 countries · 25+ real-world use cases</div>
+      <div class="event-body">Focused on how content quality directly affects clinical implementation. Five cross-cutting themes: see the Antwerp '25 sub-tab for the full poster set.</div>
+    </div>
+    <div class="event-card vienna">
+      <div class="event-title vienna">Vienna Member Forum · April 2026</div>
+      <div class="event-meta">Quality workshop · 9 groups + 1 online · NRC representatives</div>
+      <div class="event-body">Structured workshop validating and extending Antwerp themes. See the Vienna '26 sub-tab for themes, challenges, and the domain priority delta vs the Dec 2024 survey.</div>
+    </div>
+  </div>
+
+  <div class="evidence-cols">
+    <div class="evidence-card">
+      <div class="ev-title">December 2024 Priority Survey</div>
+      <div class="ev-sub">n=23 member responses · ranked by total response count</div>
+      
+        <div class="ev-row">
+          <span class="ev-rank top">1</span>
+          <span class="ev-topic">Laboratory (observations)</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:100%"></div></div>
+          <span class="ev-val">13</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank top">2</span>
+          <span class="ev-topic">Substances</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:92%"></div></div>
+          <span class="ev-val">12</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank top">3</span>
+          <span class="ev-topic">Imaging</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:84%"></div></div>
+          <span class="ev-val">11</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">4</span>
+          <span class="ev-topic">Drug extension model</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:76%"></div></div>
+          <span class="ev-val">10</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">5</span>
+          <span class="ev-topic">Surgical procedures</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:69%"></div></div>
+          <span class="ev-val">9</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">6</span>
+          <span class="ev-topic">Preventive care (incl. vaccines)</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:53%"></div></div>
+          <span class="ev-val">7</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">7</span>
+          <span class="ev-topic">Cancer</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:53%"></div></div>
+          <span class="ev-val">7</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">8</span>
+          <span class="ev-topic">Organisms</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:38%"></div></div>
+          <span class="ev-val">5</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">9</span>
+          <span class="ev-topic">Social determinants of health</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:38%"></div></div>
+          <span class="ev-val">5</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">10</span>
+          <span class="ev-topic">Interventions</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:38%"></div></div>
+          <span class="ev-val">5</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">11</span>
+          <span class="ev-topic">Mental health</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:30%"></div></div>
+          <span class="ev-val">4</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">12</span>
+          <span class="ev-topic">Measurement procedures</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:30%"></div></div>
+          <span class="ev-val">4</span>
+        </div>
+        <div class="ev-row">
+          <span class="ev-rank ">13</span>
+          <span class="ev-topic">Functioning</span>
+          <div class="ev-bar"><div class="ev-bar-fill" style="width:30%"></div></div>
+          <span class="ev-val">4</span>
+        </div>
+    </div>
+    <div class="evidence-card">
+      <div class="ev-title">Cross-event priority shifts</div>
+      <div class="ev-sub">Derived from April 2026 signal vs Dec 2024 survey rank</div>
+      <div class="theme-strip"><div class="ts-item "><span class="ts-num">↑</span><span class="ts-body"><strong>Oncology / Cancer</strong><br>STRONGEST: most mentioned domain across all groups (#1 in thematic analysis) <em style="color:var(--grey)">· Dec 2024: #7 (3 responses); shift: ⬆ UPGRADED significantly</em></span></div><div class="ts-item "><span class="ts-num">✓</span><span class="ts-body"><strong>Laboratory</strong><br>CONFIRMED: Group 1 explicit citation; #2 in thematic analysis <em style="color:var(--grey)">· Dec 2024: #1 (13 responses); shift: = Consistent high priority</em></span></div><div class="ts-item "><span class="ts-num">✓</span><span class="ts-body"><strong>Imaging / Radiology</strong><br>CONFIRMED: Groups 2, 3, 8; RADS alignment; tabular patterns <em style="color:var(--grey)">· Dec 2024: #3 (11 responses); shift: = Consistent mid-high priority</em></span></div><div class="ts-item "><span class="ts-num">↑</span><span class="ts-body"><strong>Mental health</strong><br>CONFIRMED: Group 1 explicit; #4 in thematic analysis <em style="color:var(--grey)">· Dec 2024: #11 (4 responses); shift: ⬆ UPGRADED vs survey</em></span></div><div class="ts-item "><span class="ts-num">↑</span><span class="ts-body"><strong>Rare diseases</strong><br>CONFIRMED: Group 1 explicit; #5 in thematic analysis <em style="color:var(--grey)">· Dec 2024: #14 (3 responses); shift: ⬆ UPGRADED vs survey</em></span></div><div class="ts-item "><span class="ts-num">↑</span><span class="ts-body"><strong>ICD-11 / FHIR / RADS alignment</strong><br>STRONG: Groups 2 &amp; 3 both focused on this; integrator terminology framing <em style="color:var(--grey)">· Dec 2024: Not directly in survey; shift: ⬆ NEW signal not in Dec 2024 survey</em></span></div><div class="ts-item "><span class="ts-num">↑</span><span class="ts-body"><strong>EHDS content gaps</strong><br>STRONG: NL/BE/DE/IE groups; SLA revision, collaborative authoring <em style="color:var(--grey)">· Dec 2024: Not explicitly in survey; shift: ⬆ NEW signal</em></span></div><div class="ts-item warn"><span class="ts-num">+</span><span class="ts-body"><strong>Legacy content / FSN naming</strong><br>CONFIRMED: Groups 6, 7; editorial consistency, naming drift <em style="color:var(--grey)">· Dec 2024: Not directly ranked; shift: NEW explicit signal</em></span></div></div>
+    </div>
+  </div>
+
+  
+  <div class="capacity-section">
+    <div class="ev-title">Where editorial capacity goes</div>
+    <div class="ev-sub">Based on editorial team estimates in the working spreadsheet.</div>
+    <div class="cap-chart-wrap">
+      <div class="cap-donut">
+        <svg viewBox="0 0 200 200" class="cap-svg">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#E5E7EB" stroke-width="36"></circle>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="var(--blue-bar)" stroke-width="36" stroke-dasharray="390.1 112.6" stroke-dashoffset="0.0" transform="rotate(-90 100 100)"></circle>
+<circle cx="100" cy="100" r="80" fill="none" stroke="var(--purple-bar)" stroke-width="36" stroke-dasharray="112.6 390.1" stroke-dashoffset="-390.1" transform="rotate(-90 100 100)"></circle>
+
+        </svg>
+      </div>
+      <div class="cap-legend">
+        <div class="cap-legend-item"><span class="cap-swatch" style="background:var(--blue-bar)"></span><span class="cap-legend-label">Member-driven projects<span class="cap-legend-desc">Work started or accelerated by member request</span><span class="cap-legend-count">13 items</span></span><span class="cap-legend-pct">78%</span></div><div class="cap-legend-item"><span class="cap-swatch" style="background:var(--purple-bar)"></span><span class="cap-legend-label">Pre-existing / aligned<span class="cap-legend-desc">Work already underway, aligns with member needs</span><span class="cap-legend-count">6 items</span></span><span class="cap-legend-pct">22%</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+
+  <div class="ev-subtab-panel" id="evsub-antwerp">
+    
+  <p style="font-size:12px;color:var(--grey);margin-bottom:14px">
+    Qualitative quality workshop · 16 countries · 25+ real-world use cases · Oct 2025.
+    Themes and use cases are read live from the Excel working data. Editing the
+    <em>Antwerp 2025 Workshop</em> sheet will update this tab.
+  </p>
+  <div class="section-label">Cross-cutting themes</div>
+  <div class="theme-strip" style="margin-bottom:24px"><div class="ts-item "><span class="ts-num">■</span><span class="ts-body"><strong>1. Completeness &amp; Currency</strong><br>Missing/outdated terms in lab, mental health, microorganisms, vaccines. Members want more frequent updates and collaboration with Orphanet, LOINC, HPO, ICD-11.</span></div><div class="ts-item "><span class="ts-num">■</span><span class="ts-body"><strong>2. Consistency &amp; Modelling Quality</strong><br>Inconsistent attributes in anatomy, laterality, lab. Ambiguities in drug/substance/procedural hierarchies affect interoperability and analytics.</span></div><div class="ts-item "><span class="ts-num">■</span><span class="ts-body"><strong>3. Cultural &amp; Linguistic Fit</strong><br>Translation challenges and 'Anglo-centric' concepts cause misinterpretation (e.g. 'drug' in Norwegian). Members want more culturally neutral modelling.</span></div><div class="ts-item warn"><span class="ts-num">■</span><span class="ts-body"><strong>4. Implementation Usability &amp; Stability  ⚠</strong><br>Members consistently stated: 'consistently wrong is easier to manage than inconsistently changing.' National projects need predictable update cycles and clear editorial guidance. This is the UK NRC concern validated by 16 countries: not one NRC, the community.</span></div><div class="ts-item "><span class="ts-num">■</span><span class="ts-body"><strong>5. Collaboration &amp; Tooling</strong><br>Requests for stronger collaboration between SI and national release centres. Desire for shared tools/templates for lab, microorganism modelling, and vaccine hierarchies.</span></div></div>
+
+  <div class="section-label">Workshop posters: member use cases</div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;overflow-x:auto">
+    <table class="criteria-table" style="margin-top:0">
+      <thead><tr>
+        <th style="width:36px">#</th>
+        <th>Workshop group</th>
+        <th>Countries</th>
+        <th>Main issues</th>
+        <th>Maps to Dec 2024 survey</th>
+      </tr></thead>
+      <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#1</td>
+            <td style="font-weight:600;width:170px">Diagnostic Procedures</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Multi-country</td>
+            <td style="font-size:12px">Inconsistent naming/modelling of percutaneous procedures (e.g. nephrostomy with CT guidance);
+missing generic procedures (e.g. 'with or without contrast')</td>
+            <td style="font-size:11px;color:var(--grey)">Surgical procedures (Gap #5)
+Interventions (#10)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#2</td>
+            <td style="font-weight:600;width:170px">Specimen Content</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Multi-country</td>
+            <td style="font-size:12px">Incomplete modelling of viruses and organisms;
+out-of-date or inconsistent naming for notifiable diseases;
+fragmented content derived from veterinary extensions</td>
+            <td style="font-size:11px;color:var(--grey)">Laboratory (#1)
+Organisms (#8)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#3</td>
+            <td style="font-weight:600;width:170px">One Health Initiatives</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Australia, multi-country</td>
+            <td style="font-size:12px">Gaps/inconsistencies in virus naming and hierarchy;
+inconsistent links between organisms and clinical findings</td>
+            <td style="font-size:11px;color:var(--grey)">Organisms (#8)
+Surveillance (#19)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#4</td>
+            <td style="font-weight:600;width:170px">Rare Diseases, ICF &amp; Mental Health</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Belgium, multi-country</td>
+            <td style="font-size:12px">Gaps in rare disease and DSM content;
+limited coordination and validation between members' national approaches</td>
+            <td style="font-size:11px;color:var(--grey)">Rare diseases (#14)
+Mental health (#11)
+Functioning (#13)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#5</td>
+            <td style="font-weight:600;width:170px">Organisms &amp; Microbiology Findings</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Sweden, multi-country</td>
+            <td style="font-size:12px">Outdated organism names;
+missing morphology groupings;
+inconsistent QA on susceptibility testing results</td>
+            <td style="font-size:11px;color:var(--grey)">Organisms (#8)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#6</td>
+            <td style="font-weight:600;width:170px">Pregnancy Records</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Denmark</td>
+            <td style="font-size:12px">Missing or incorrect concepts (e.g. lab unit errors: 10*6/L instead of 10^6/L);
+patient safety implications in clinical systems</td>
+            <td style="font-size:11px;color:var(--grey)"></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#7</td>
+            <td style="font-weight:600;width:170px">Mental Health, Anatomy &amp; Substances</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Norway, multi-country</td>
+            <td style="font-size:12px">Outdated DSM terms (e.g. bipolar disorder);
+confusion between 'drug' and 'medicament' (clinical safety risk in Norway);
+anatomical inconsistency (thumb vs finger)</td>
+            <td style="font-size:11px;color:var(--grey)">Mental health (#11)
+Substances (#2)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#8</td>
+            <td style="font-weight:600;width:170px">India &amp; Sweden Joint Poster</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">India, Sweden</td>
+            <td style="font-size:12px">Lack of consistency, completeness and accuracy;
+incomplete ICD/SNOMED/proprietary code mappings;
+delays in content updates affecting national system go-live</td>
+            <td style="font-size:11px;color:var(--grey)">Cross-cutting
+(multiple Dec 2024 topics)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#9</td>
+            <td style="font-weight:600;width:170px">Substances (Allergies &amp; Lifestyle)</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Multi-country</td>
+            <td style="font-size:12px">Missing or incomplete modelling and definitions for substance content</td>
+            <td style="font-size:11px;color:var(--grey)">Substances (#2)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#10</td>
+            <td style="font-weight:600;width:170px">Broader Domain Coverage</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Belgium, Portugal, Spain, Uruguay</td>
+            <td style="font-size:12px">Missing content across multiple areas;
+outdated social concepts;
+incomplete device and environmental domain coverage;
+mapping and post-coordination challenges</td>
+            <td style="font-size:11px;color:var(--grey)">Surgical procedures (#5)
+Social determinants (#9)
+Interventions (#10)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#11</td>
+            <td style="font-weight:600;width:170px">Vaccination &amp; Administration Procedures</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Multi-country</td>
+            <td style="font-size:12px">Limited representation of vaccination processes;
+overlaps between preparation, administration, and documentation;
+unclear modelling of vaccine combinations</td>
+            <td style="font-size:11px;color:var(--grey)">Preventive care / vaccines (#6)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#12</td>
+            <td style="font-weight:600;width:170px">Alignment with Other Standards</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Belgium, Rare Disease projects</td>
+            <td style="font-size:12px">Infrequent mapping updates (e.g. annual Orphanet linkage only);
+potentially outdated or inconsistent alignments</td>
+            <td style="font-size:11px;color:var(--grey)">Rare diseases (#14)
+Laboratory (#1)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:32px">#13</td>
+            <td style="font-weight:600;width:170px">Online Group: Medicinal Products, Substances &amp; Lab</td>
+            <td style="width:130px;font-size:11px;color:var(--grey)">Online participants
+(multi-country)</td>
+            <td style="font-size:12px">National extensions depend on infrequent international releases;
+missing marketed drugs and active substances cause local duplication</td>
+            <td style="font-size:11px;color:var(--grey)">Laboratory (#1)
+Substances (#2)
+Drug extension model (#4)</td>
+          </tr></tbody>
+    </table>
+  </div>
+
+  </div>
+
+  <div class="ev-subtab-panel" id="evsub-vienna">
+    
+  <p style="font-size:12px;color:var(--grey);margin-bottom:14px">
+    April 2026 Member Forum Quality Workshop · 9 in-person groups + 1 online.
+    Read live from the <em>April 2026 MF Workshop</em> sheet.
+  </p>
+  <div class="commitment-box" style="background:#F0FDF4;border-color:#22C55E"><strong style="color:#15803D">Central message:</strong> Central message: The community is moving from "better concepts" toward "better implementation ecosystems." The future differentiator is not only terminology quality, but: visibility, interoperability, implementation repeatability, multilingual governance, domain maturity transparency, and faster collaborative authoring.</div>
+
+  <div class="section-label">Theme participation</div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px"><table class="criteria-table" style="margin-top:0"><thead><tr><th>Theme</th><th>Groups</th><th>Key signal</th></tr></thead><tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:260px">Consistency &amp; Modelling Quality</td>
+            <td style="width:140px;font-size:12px;color:var(--grey)">3 groups (6, 7, 8)</td>
+            <td style="font-size:12px">Legacy content, FSN naming drift, oncology/cancer modelling: highest group count</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:260px">Completeness &amp; Currency of Content</td>
+            <td style="width:140px;font-size:12px;color:var(--grey)">2 groups (1, 4)</td>
+            <td style="font-size:12px">Domain maturity visibility; EHDS content acceleration; SLA revision urgently needed</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:260px">Alignment with Other Standards</td>
+            <td style="width:140px;font-size:12px;color:var(--grey)">2 groups (2, 3)</td>
+            <td style="font-size:12px">SNOMED as integrator terminology; ICD-11, RADS, FHIR, imaging alignment</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:260px">Implementation Usability &amp; Stability</td>
+            <td style="width:140px;font-size:12px;color:var(--grey)">1 group (9)</td>
+            <td style="font-size:12px">Vendor adoption blockers: no certification, weak mandate, no extension support</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:260px">Cultural &amp; Linguistic Adaptability</td>
+            <td style="width:140px;font-size:12px;color:var(--grey)">1 group (5)</td>
+            <td style="font-size:12px">Linguistic inconsistency in translation; cultural bias in legacy content; patient safety risk</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:260px">Collaboration &amp; Tooling</td>
+            <td style="width:140px;font-size:12px;color:var(--grey)">0 in-person (online group)</td>
+            <td style="font-size:12px">Missing content governance routes; tabular pattern management; oncology attribute gaps</td>
+          </tr></tbody></table></div>
+
+  <div class="section-label" style="margin-top:20px">Domain priority signal vs Dec 2024</div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;overflow-x:auto"><table class="criteria-table" style="margin-top:0"><thead><tr><th>Domain</th><th>April 2026 signal</th><th>Dec 2024 rank</th><th>Shift</th><th>Recommended action</th></tr></thead><tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">Oncology / Cancer</td>
+            <td style="font-size:12px">STRONGEST: most mentioned domain across all groups (#1 in thematic analysis)</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">#7 (3 responses)</td>
+            <td style="font-size:12px;width:180px;background:#FFF7ED;color:#C2410C;font-weight:700;">⬆ UPGRADED significantly</td>
+            <td style="font-size:12px;width:220px">Elevate to top-tier priority; dedicated remediation programme</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">Laboratory</td>
+            <td style="font-size:12px">CONFIRMED: Group 1 explicit citation; #2 in thematic analysis</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">#1 (13 responses)</td>
+            <td style="font-size:12px;width:180px;color:var(--green-dk);font-weight:600;">= Consistent high priority</td>
+            <td style="font-size:12px;width:220px">Maintain active status; LOINC/NPU collaboration critical</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">Imaging / Radiology</td>
+            <td style="font-size:12px">CONFIRMED: Groups 2, 3, 8; RADS alignment; tabular patterns</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">#3 (11 responses)</td>
+            <td style="font-size:12px;width:180px;color:var(--green-dk);font-weight:600;">= Consistent mid-high priority</td>
+            <td style="font-size:12px;width:220px">Ensure RADS alignment work is visible on roadmap</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">Mental health</td>
+            <td style="font-size:12px">CONFIRMED: Group 1 explicit; #4 in thematic analysis</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">#11 (4 responses)</td>
+            <td style="font-size:12px;width:180px;background:#FFF7ED;color:#C2410C;font-weight:700;">⬆ UPGRADED vs survey</td>
+            <td style="font-size:12px;width:220px">Higher visibility warranted; gap area to address</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">Rare diseases</td>
+            <td style="font-size:12px">CONFIRMED: Group 1 explicit; #5 in thematic analysis</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">#14 (3 responses)</td>
+            <td style="font-size:12px;width:180px;background:#FFF7ED;color:#C2410C;font-weight:700;">⬆ UPGRADED vs survey</td>
+            <td style="font-size:12px;width:220px">Orphanet collaboration should be surfaced prominently</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">ICD-11 / FHIR / RADS alignment</td>
+            <td style="font-size:12px">STRONG: Groups 2 &amp; 3 both focused on this; integrator terminology framing</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">Not directly in survey</td>
+            <td style="font-size:12px;width:180px;background:#FFF7ED;color:#C2410C;font-weight:700;">⬆ NEW signal not in Dec 2024 survey</td>
+            <td style="font-size:12px;width:220px">Add interoperability roadmap as explicit roadmap workstream</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">EHDS content gaps</td>
+            <td style="font-size:12px">STRONG: NL/BE/DE/IE groups; SLA revision, collaborative authoring</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">Not explicitly in survey</td>
+            <td style="font-size:12px;width:180px;background:#FFF7ED;color:#C2410C;font-weight:700;">⬆ NEW signal</td>
+            <td style="font-size:12px;width:220px">EHDS acceleration should be named workstream on roadmap</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--navy);width:180px">Legacy content / FSN naming</td>
+            <td style="font-size:12px">CONFIRMED: Groups 6, 7; editorial consistency, naming drift</td>
+            <td style="font-size:12px;color:var(--grey);width:120px">Not directly ranked</td>
+            <td style="font-size:12px;width:180px;background:#FFF7ED;color:#C2410C;font-weight:700;">NEW explicit signal</td>
+            <td style="font-size:12px;width:220px">Legacy remediation programme; editorial consistency cycle</td>
+          </tr></tbody></table></div>
+
+  <div class="section-label" style="margin-top:20px">Five systemic challenges</div>
+  <div class="theme-strip" style="margin-bottom:20px"><div class="ts-item"><span class="ts-num">1.</span><span class="ts-body"><strong>Content Completeness, Maturity &amp; Visibility</strong><br>Users cannot determine whether a domain is "ready enough" for implementation. Limited maturity visibility, slow turnaround, weak governance routes for missing content requests.<br><span style="color:var(--orange);font-size:12px">Pressure: EHDS-driven missing content acceleration; maturity dashboards; domain-group completeness views</span></span></div><div class="ts-item"><span class="ts-num">2.</span><span class="ts-body"><strong>Cross-Standard Interoperability</strong><br>Shift from terminology-centric thinking to pathway-level interoperability architecture. Members want visible interoperability roadmaps, reference mappings, practical showcases.<br><span style="color:var(--orange);font-size:12px">Pressure: SNOMED as "integrator terminology"; interoperability roadmaps; governance for standard convergence</span></span></div><div class="ts-item"><span class="ts-num">3.</span><span class="ts-body"><strong>Modelling Quality, Legacy Content &amp; Naming</strong><br>Legacy content inconsistencies becoming implementation bottlenecks. FSN naming drift, oncology/neoplasm modelling, pathology searchability, extension vs international misalignment.<br><span style="color:var(--orange);font-size:12px">Pressure: Priority remediation programme for high-burden clinical domains; editorial consistency review cycle</span></span></div><div class="ts-item"><span class="ts-num">4.</span><span class="ts-body"><strong>Multilingual &amp; Cultural Linguistic Quality</strong><br>Mistranslation risk in clinical UI. Ambiguity in body structure hierarchies, inconsistent prescription wording, cultural bias in inherited content.<br><span style="color:var(--orange);font-size:12px">Pressure: Language-independent rules; multilingual representation testing; ambiguity review workflows</span></span></div><div class="ts-item"><span class="ts-num">5.</span><span class="ts-body"><strong>Implementation Usability, Vendor Adoption &amp; Governance</strong><br>Even where terminology quality is sufficient, vendors lack a clear implementation framework. No certification pathway, weak legislative mandate support, fragmented EHR patterns.<br><span style="color:var(--orange);font-size:12px">Pressure: SNOMED CT Vendor Adoption Toolkit: reference architecture, certification criteria, implementation playbooks</span></span></div></div>
+
+  <div class="section-label">Six macro-patterns</div>
+  <div class="theme-strip"><div class="ts-item"><span class="ts-num">●</span><span class="ts-body"><strong>1. Governance clarity gap</strong><br>Members repeatedly ask: "Where do we raise this? Who owns this? What is the route?" Major signal for workflow simplification and request routing transparency.</span></div><div class="ts-item"><span class="ts-num">●</span><span class="ts-body"><strong>2. Transparency deficit</strong><br>Members want roadmaps, maturity views, visible prioritisation, and request status visibility. The roadmap dashboard directly addresses this.</span></div><div class="ts-item"><span class="ts-num">●</span><span class="ts-body"><strong>3. EHDS as external forcing function</strong><br>EU policy landscape is clearly shaping priorities. Multiple groups connect missing content speed with EU interoperability success. NL, BE, DE, IE NRCs most vocal.</span></div><div class="ts-item"><span class="ts-num">●</span><span class="ts-body"><strong>4. Legacy debt affecting adoption</strong><br>Old content issues now directly impair search, translation, trust, and vendor deployment. Not just a quality issue: an adoption blocker.</span></div><div class="ts-item"><span class="ts-num">●</span><span class="ts-body"><strong>5. Need for implementation artefacts</strong><br>Strongest unmet need: toolkits, examples, and repeatable patterns. Vendor adoption toolkit, reference architectures, and implementation playbooks.</span></div><div class="ts-item"><span class="ts-num">●</span><span class="ts-body"><strong>6. SNOMED as integrator terminology</strong><br>Strategic positioning: Members want SNOMED CT to act as the "glue" across care pathways and other coding systems: not merely another coding system.</span></div></div>
+
+  </div>
+
+</div>
+
+<!-- ── TAB 3: HOW WE PRIORITISE ── -->
+<div id="tab-process" class="tab-panel">
+  <p style="font-size:13px;color:var(--grey);margin-bottom:16px">This page explains how SNOMED International decides what content work to prioritise, how member requests flow into that process, and what drives work not directly traceable to a member request.</p>
+  <div class="commitment-box">
+    <strong>Commitment made at Vienna MB/GA, April 2026:</strong> SNOMED International will produce a 6-monthly content report to the General Assembly. The first report will be presented at the Annual Meeting. A publicly accessible version will be available so that non-members can also see the roadmap.
+  </div>
+  <div class="section-label">Prioritisation criteria</div>
+  <table class="criteria-table">
+    <thead><tr><th style="width:28%">Criterion</th><th style="width:42%">What it measures</th><th>Data source</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Member survey ranking</strong></td><td>Which content gaps members rated highest in structured surveys.</td><td>December 2024 survey (n=23); Seoul 2024 forum</td></tr>
+      <tr><td><strong>Cross-event validation</strong></td><td>Whether a gap was independently raised at multiple events, which is a stronger signal than a single survey.</td><td>Antwerp '25 workshop; Vienna '26 MF workshop</td></tr>
+      <tr><td><strong>Collaboration opportunity</strong></td><td>Whether an authoritative external partner is available to co-develop content.</td><td>Active partner pipeline; CRG expressions of interest</td></tr>
+      <tr><td><strong>Implementation impact &amp; patient safety</strong></td><td>Whether errors risk clinical harm. Safety elevates priority regardless of survey rank.</td><td>Member forum reports; NRC feedback; Antwerp case studies</td></tr>
+      <tr><td><strong>GA or Board mandate</strong></td><td>Work explicitly directed by the General Assembly or Management Board.</td><td>GA resolutions; MB decisions; bilateral agreements</td></tr>
+      <tr><td><strong>QA programme quality targets</strong></td><td>Whether evidence from editorial review, structural consistency checks, or clinical audit shows a hierarchy needs targeted remediation to improve implementation reliability.</td><td>Editorial review findings; structural consistency metrics; clinical audit</td></tr>
+      <tr><td><strong>Delivery capacity</strong></td><td>Whether SI has editorial resource and whether work depends on other items completing first.</td><td>Content team capacity planning; dependency map</td></tr>
+    </tbody>
+  </table>
+  <div class="section-label" style="margin-top:20px">The QA Programme</div>
+  <div class="qa-explainer">
+    <strong>How QA Programme items get on the roadmap</strong>
+    <p style="margin-top:8px">The QA Programme remediates hierarchies where quality evidence (editorial review, structural consistency checks, and clinical audit) has identified issues that affect how reliably members can implement the content. Domains are chosen on that evidence, often reflecting implementation problems members have already reported in aggregate, rather than a single specific ranked request.</p>
+    <p style="margin-top:8px"><strong>Commitment:</strong> Because QA changes strengthen the base terminology, they flow to every member's national edition. SI therefore publishes which domains are in scope for QA work in advance of each release so that national release centres can plan for the changes rather than react. This responds directly to the "implementation stability" concerns raised at Antwerp 2025.</p>
+  </div>
+</div>
+
+<!-- ── TAB 5: KEY & GLOSSARY ── -->
+<div id="tab-key" class="tab-panel">
+<p class="key-intro">This tab explains the terminology used across the roadmap: horizons, activity types, status badges, <strong>triggers</strong> (why the work is happening), provenance chips (which event raised the topic), and the Under Assessment sub-buckets. <strong>Hover any coloured pill anywhere in the dashboard</strong> to see the same definition inline.</p><div class="key-section"><div class="key-section-title"><span class="key-section-num">1</span><span>Roadmap horizons</span></div><div class="key-section-sub">The main board is organised into four horizon columns plus an In Maintenance section.</div><table class="key-table"><colgroup><col class="col-narrow"><col style="width:34%"><col></colgroup><thead><tr><th>Horizon</th><th>Meaning</th><th>Driver</th></tr></thead><tbody><tr><td><span class="key-label-strong" data-tip="Work being actively delivered this IE cycle (April 2026 / October 2026 releases).">Now</span></td><td>Work being actively delivered this IE cycle (April 2026 / October 2026 releases).</td><td>Active Work with <code>Still active = Yes</code> and timeline in 2026 or "Ongoing".</td></tr><tr><td><span class="key-label-strong" data-tip="Work committed to start in the next cycle (2027 IE releases).">Next</span></td><td>Work committed to start in the next cycle (2027 IE releases).</td><td>Active Work with timeline landing in 2027; or a Gap Area flagged Mid-term (1 to 2 years).</td></tr><tr><td><span class="key-label-strong" data-tip="Scoped for a future cycle (2028 or beyond).">Later</span></td><td>Scoped for a future cycle (2028 or beyond).</td><td>Active Work with timeline 2028+; or Gap Area flagged Long-term (3 to 5 years).</td></tr><tr><td><span class="key-label-strong" data-tip="No timeline yet: paused, declined with a reason, or not yet reviewed.">Under Assessment</span></td><td>No timeline yet: paused, declined (with a reason), or not yet reviewed.</td><td>See the three sub-buckets in section 7.</td></tr><tr><td><span class="key-label-strong" data-tip="Steady-state: maintenance, member requests, translations, mature CRGs without a member signal.">In Maintenance</span></td><td>Steady-state work (maintenance, member requests, translations, CRGs without a member signal).</td><td>Completed items, Gap Areas previously flagged as routine maintenance, or rows from the Ongoing Work sheet.</td></tr></tbody></table><p class="key-footnote">Horizons represent <em>when work is being done</em>, not when a concept will be delivered. A 2027 timeline places work in "Next" because delivery lands next cycle.</p></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">2</span><span>Activity types (card colour key)</span></div><div class="key-section-sub">Each card's background colour reflects how the work is being delivered.</div><div class="key-grid"><div class="key-item v-members"><div class="key-item-head"><span class="key-sample-swatch" style="background:var(--blue-bar)"></span><span class="key-label-strong">Member-Driven</span></div><div class="key-item-def">Work directly requested or initiated by a member NRC: content requests (CRS), translation requests, member-led collaborations. Reserved for the Ongoing Work sheet.</div></div><div class="key-item v-crg"><div class="key-item-head"><span class="key-sample-swatch" style="background:var(--purple-bar)"></span><span class="key-label-strong">CRG (Clinical Reference Group)</span></div><div class="key-item-def">Domain-specific expert working groups that maintain a hierarchy (Allergies, Dentistry, Nutrition, Ophthalmology…). Typically continuous.</div></div><div class="key-item v-collab"><div class="key-item-head"><span class="key-sample-swatch" style="background:var(--green-bar)"></span><span class="key-label-strong">External Collaboration</span></div><div class="key-item-def">Joint content development with an authoritative external partner: LOINC/NPU, AJCC/ICCR, Orphanet, Gravity Project, HPO.</div></div><div class="key-item v-collab-auth"><div class="key-item-head"><span class="key-sample-swatch" style="background:var(--teal-bar)"></span><span class="key-label-strong">Collaborative Authoring</span></div><div class="key-item-def">Members and SI editors author content jointly through SI's Authoring Platform workflow (e.g. Microbiology).</div></div><div class="key-item v-qa"><div class="key-item-head"><span class="key-sample-swatch" style="background:var(--orange-bar)"></span><span class="key-label-strong">QA Programme</span></div><div class="key-item-def">Targeted improvement of a specific hierarchy where quality evidence (editorial review, structural consistency checks, clinical audit) flags issues that affect how members can implement the content. Scope is published before work begins.</div></div><div class="key-item v-wg"><div class="key-item-head"><span class="key-sample-swatch" style="background:#D81B60"></span><span class="key-label-strong">Working Group</span></div><div class="key-item-def">Time-boxed working group with a specific remit (Cancer synoptic reporting WG, Organisms WG, etc.).</div></div><div class="key-item v-plan"><div class="key-item-head"><span class="key-sample-swatch" style="background:#FFC000"></span><span class="key-label-strong">Planning</span></div><div class="key-item-def">Member-priority gap with no active project yet. Scope and approach to be agreed.</div></div><div class="key-item v-assess"><div class="key-item-head"><span class="key-sample-swatch" style="background:#BFBFBF"></span><span class="key-label-strong">Under Assessment</span></div><div class="key-item-def">No active work yet. Item is paused, declined with reason, or not yet reviewed.</div></div></div></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">3</span><span>SI status badges</span></div><div class="key-section-sub">The small pill at the top of each card shows where SI is on the work.</div><table class="key-table"><colgroup><col class="col-narrow"><col style="width:34%"><col></colgroup><thead><tr><th>Badge</th><th>Meaning</th><th>When it appears</th></tr></thead><tbody><tr><td><span class="si-badge badge-delivery">Active</span></td><td>Work is in delivery now.</td><td><code>Still active = Yes</code>.</td></tr><tr><td><span class="si-badge badge-planned">Planned</span></td><td>SI has committed to start work. No activity yet.</td><td>Gap Area <code>Status = Active</code> with no Active Work entry.</td></tr><tr><td><span class="si-badge badge-paused">Paused</span></td><td>Previously active, now on hold. Will need explicit restart.</td><td><code>Still active = Paused</code>.</td></tr><tr><td><span class="si-badge badge-gap">No activity yet</span></td><td>Member-raised gap, no SI response yet.</td><td>Gap Area <code>Status = Not started</code>.</td></tr><tr><td><span class="si-badge badge-deferred">Deferred</span></td><td>Considered and declined for this cycle. Comes with a reason.</td><td>Gap Area <code>Status = Deferred</code>.</td></tr><tr><td><span class="si-badge badge-delivered">In Maintenance</span></td><td>Steady-state: completed and folded into ongoing maintenance.</td><td>Completed Active Work; Gap Area <code>Status = In Maintenance</code>; Ongoing Work sheet.</td></tr></tbody></table></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">4</span><span>Triggers: why this work is happening</span></div><p class="key-section-sub">Every card carries a <em>Trigger</em> pill that explains <strong>why</strong> SI is doing this work: whether members drove it, whether it was already underway, or whether SI decided not to pursue it. <strong>Hover any pill on the Roadmap Board to see the same tooltip.</strong></p><table class="key-table"><colgroup><col style="width:24%"><col style="width:36%"><col></colgroup><thead><tr><th>Trigger</th><th>What it means</th><th>Implication for members</th></tr></thead><tbody><tr><td><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#39;s roadmap before members raised it.">Member-driven (started)</span></td><td>Work was initiated in direct response to a member request, survey, or workshop signal. SI wasn't doing it before.</td><td>Direct evidence that member input changes the roadmap. Most visible at Organisms, Rare diseases, Drug extension model.</td></tr><tr><td><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span></td><td>SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.</td><td>Member input sharpens existing work (e.g. LOINC/NPU collaboration, AJCC/ICCR on Cancer).</td></tr><tr><td><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#39;s signal.">Pre-existing aligned</span></td><td>Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested.</td><td>Not driven by this cycle's member signal; typical for mature CRGs (Allergies, Dentistry, Nutrition, Ophthalmology).</td></tr><tr><td><span class="card-trigger trig-qa-programme" data-tip="QA Programme · Targeted remediation of a hierarchy where evidence (editorial review, structural consistency checks, clinical audit) has flagged issues that affect how reliably members can implement the content. Scope is agreed and published before work starts so the plan is visible up-front.">QA Programme</span></td><td>Remediation of a specific hierarchy where quality evidence (editorial review, structural consistency checks, clinical audit) has identified issues affecting implementation reliability. Scope is agreed and published before work starts.</td><td>Strengthens content members already rely on. Domains in scope are published each cycle so members can plan for updates and see that selection is evidence-led, not arbitrary.</td></tr><tr><td><span class="card-trigger trig-declined" data-tip="Declined (with reason) · Member request considered and deliberately not taken up this cycle. Rationale is on file; members can re-raise next cycle.">Declined (with reason)</span></td><td>Member request has been considered and declined for this cycle. A rationale is recorded.</td><td>Closes the feedback loop. Members know their request was seen and why it wasn't picked up.</td></tr><tr><td><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span></td><td>Item raised but not yet reviewed by SNOMED International's authoring team. No decision either way.</td><td>Placeholder: these should be assessed by the next 6-monthly report.</td></tr></tbody></table><p class="key-footnote">A trailing asterisk (<code>*</code>) on the trigger pill indicates a <em>tentative</em> classification pending confirmation.</p></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">5</span><span>Provenance chips: where the ask came from</span></div><p class="key-section-sub">Every card shows which member input events raised the topic. If none did, the activity type is shown in place of a provenance chip.</p><table class="key-table"><colgroup><col class="col-narrow"><col style="width:18%"><col></colgroup><thead><tr><th>Chip</th><th>Event</th><th>What it was</th></tr></thead><tbody><tr><td><span class="prov-chip chip-seoul" data-tip="Seoul &#39;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #N</span></td><td>October 2024</td><td>Quantitative member priority survey (n=23 members) ranking 19 content gaps. The <code>#N</code> shows the rank.</td></tr><tr><td><span class="prov-chip chip-antwerp" data-tip="Antwerp &#39;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></td><td>October 2025</td><td>Qualitative implementation workshop (16 countries, 25+ use cases). Posters / themes are referenced on the Evidence tab.</td></tr><tr><td><span class="prov-chip chip-vienna" data-tip="Vienna &#39;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></td><td>April 2026</td><td>Member Forum quality workshop (9 NRC groups). Signal deltas from Seoul are shown on the Evidence tab.</td></tr><tr><td><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#39;SI Initiated&#39; appears only when the activity type is also blank.">[Type name]</span></td><td>No event signal</td><td>Fallback: the activity type is shown instead (e.g. "CRG", "QA Programme"). "SI Initiated" only appears when the activity type is also blank.</td></tr></tbody></table></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">6</span><span>Project vs Continuous</span></div><div class="key-section-sub">Every card is also classified as one of:</div><div class="key-grid cols-2"><div class="key-item"><div class="key-item-head"><span class="nature-badge nature-project">Project</span><span class="key-label-strong">Project</span></div><div class="key-item-def">Specific deliverable, defined scope, end date. Finishes when delivered. Example: "Drug extension model scoping".</div></div><div class="key-item"><div class="key-item-head"><span class="nature-badge nature-continuous">Continuous</span><span class="key-label-strong">Continuous</span></div><div class="key-item-def">Runs indefinitely: CRG maintenance, open-ended collaborations, QA programme. No "done" state. Example: "LOINC/NPU collaboration" or "Allergies CRG".</div></div></div></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">7</span><span>Under Assessment sub-buckets</span></div><p class="key-section-sub">The "Under Assessment" column on the Roadmap Board is split into three sub-headings so members can see which items are actively frozen, which have been declined with a reason, and which are simply awaiting review.</p><table class="key-table"><colgroup><col class="col-narrow"><col style="width:38%"><col></colgroup><thead><tr><th>Sub-bucket</th><th>What it means</th><th>Next step</th></tr></thead><tbody><tr><td><span class="key-label-strong">Paused</span></td><td>Work was active, then stopped. Waiting on an external dependency, resourcing, or partner input.</td><td>Explicit restart decision needed.</td></tr><tr><td><span class="key-label-strong">Declined (with reason)</span></td><td>Member request has been considered by SI and deliberately not taken up this cycle. Rationale is on file.</td><td>Member can re-raise if circumstances change; SI will re-assess next cycle.</td></tr><tr><td><span class="key-label-strong">Not yet assessed</span></td><td>Item raised but not yet reviewed. No decision in either direction.</td><td>Target: review before the next 6-monthly report.</td></tr></tbody></table></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">8</span><span>Roadmap themes: how activity types connect to the 2025-2030 roadmap</span></div><p class="key-section-sub">The published <strong>2025-2030 Content Development Roadmap</strong> is organised around three themes. Every activity type on this dashboard supports one or more of them. The year-by-year phase band on the Timeline tab shows which theme is in focus each year: <strong>2026</strong> Collaborative Authoring expansion, <strong>2027</strong> Automated review and member re-evaluation, <strong>2028</strong> AI-assisted authoring, <strong>2029+</strong> Refocus and evolution.</p><table class="key-table"><colgroup><col class="col-narrow"><col style="width:42%"><col></colgroup><thead><tr><th>Theme</th><th>What it means</th><th>Activity types that deliver it</th></tr></thead><tbody><tr><td><span class="key-label-strong">Quality</span></td><td>Clinical accuracy, modelling consistency, and currency of content members already rely on. Evidence for <em>where</em> to act comes from member implementation experience, CRGs, and editorial review, not from an SI-only agenda.</td><td><strong>CRG</strong>, <strong>Working Group</strong>, <strong>QA Programme</strong> (primary). Also touched by <strong>External Collaboration</strong> and <strong>Member-Driven</strong> content tickets that surface real-world issues.</td></tr><tr><td><span class="key-label-strong">Collaborative Authoring</span></td><td>Expanding <em>who</em> contributes to SNOMED CT beyond the SI core editorial team: members, external domain authorities (LOINC, AJCC, Orphanet, HPO), and content promoted directly from national extensions (Norway, Estonia, etc.).</td><td><strong>Member-Driven</strong>, <strong>External Collaboration</strong>, <strong>Collaborative Authoring</strong>, <strong>Extension</strong> (primary). <strong>CRG</strong> and <strong>Working Group</strong> are themselves collaborative structures.</td></tr><tr><td><span class="key-label-strong">Innovation</span></td><td>Automated review tooling from 2027 and AI-assisted authoring from 2028, scaling what the team can cover and supporting the evolution toward <strong>SNOMED 2030</strong>.</td><td>Cross-cutting: will be applied to all activity types as tooling matures. Not yet a visible card type on the current roadmap.</td></tr></tbody></table><p class="key-footnote"><em>Theme labels are taken from the published 2025-2030 Content Development Roadmap. They sit alongside (not above) member priorities: the content being authored in each theme is still driven by member input events (Seoul '24, Antwerp '25, Vienna '26) and member-initiated requests.</em></p></div><div class="key-section"><div class="key-section-title"><span class="key-section-num">9</span><span>Member input events</span></div><div class="key-section-sub">The three events that feed the roadmap.</div><table class="key-table"><colgroup><col style="width:22%"><col style="width:14%"><col style="width:22%"><col></colgroup><thead><tr><th>Event</th><th>When</th><th>Scope</th><th>Nature of input</th></tr></thead><tbody><tr><td><span class="key-label-strong">Seoul '24 Survey</span></td><td>October 2024</td><td>23 member NRCs</td><td>Structured quantitative priority ranking of 19 content gap areas. Primary ranked evidence.</td></tr><tr><td><span class="key-label-strong">Antwerp '25 Workshop</span></td><td>October 2025</td><td>16 countries, 25+ use cases</td><td>Qualitative implementation workshop. Surfaced systemic challenges (implementation stability, tooling, governance) beyond the content list.</td></tr><tr><td><span class="key-label-strong">Vienna '26 MF Workshop</span></td><td>April 2026</td><td>9 NRC groups at Member Forum</td><td>Quality-focused workshop. Used to validate and update Seoul priorities 18 months on; see "signal deltas" on the Evidence tab.</td></tr></tbody></table></div>
+</div>
+
+</div><!-- /main -->
+
+<footer>
+  SNOMED CT Content Development Roadmap &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp;
+  Evidence: Seoul '24 survey · Antwerp '25 workshop · Vienna '26 Member Forum &nbsp;·&nbsp;
+  <a href="https://someonething.com/reports/info@snomed.org">Contact the content team</a>
+</footer>
+
+<script>
+var activeOrigin = 'all';
+var activeSi     = 'all';
+var activeType   = 'all';
+
+function setFilter(type, value, btn) {
+  // Update active button in group
+  var group = btn.parentElement;
+  group.querySelectorAll('.f-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  if (type === 'origin') activeOrigin = value;
+  if (type === 'si')     activeSi     = value;
+  if (type === 'type')   activeType   = value;
+
+  applyFilters();
+}
+
+function resetFilters() {
+  activeOrigin = 'all';
+  activeSi     = 'all';
+  activeType   = 'all';
+  // Reset button active states: mark each group's first ("All") button
+  document.querySelectorAll('.filter-group').forEach(function(group) {
+    group.querySelectorAll('.f-btn').forEach(function(b) { b.classList.remove('active'); });
+    var first = group.querySelector('.f-btn');
+    if (first) first.classList.add('active');
+  });
+  applyFilters();
+}
+
+function applyFilters() {
+  var cards   = document.querySelectorAll('.horizon-items .rm-card, .delivered-grid .rm-card');
+  var visible = 0;
+
+  cards.forEach(function(card) {
+    var showOrigin = true;
+    if (activeOrigin === 'seoul')   showOrigin = card.dataset.seoul   === '1';
+    if (activeOrigin === 'antwerp') showOrigin = card.dataset.antwerp === '1';
+    if (activeOrigin === 'vienna')  showOrigin = card.dataset.vienna  === '1';
+
+    var showSi = true;
+    if (activeSi !== 'all') showSi = card.dataset.si === activeSi;
+
+    var showType = true;
+    if (activeType !== 'all') showType = card.dataset.type === activeType;
+
+    var show = showOrigin && showSi && showType;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  // Show/hide empty messages per horizon column
+  document.querySelectorAll('.horizon-col').forEach(function(col) {
+    var vis = col.querySelectorAll('.rm-card:not([style*="none"])').length;
+    var emp = col.querySelector('.horizon-empty');
+    if (emp) emp.style.display = vis ? 'none' : '';
+  });
+
+  // In Maintenance section: show a placeholder if all its cards are filtered out
+  var maintGrid = document.querySelector('.delivered-grid');
+  if (maintGrid) {
+    var maintVisible = maintGrid.querySelectorAll('.rm-card:not([style*="none"])').length;
+    var maintEmpty = document.getElementById('maint-empty');
+    if (!maintEmpty) {
+      maintEmpty = document.createElement('div');
+      maintEmpty.id = 'maint-empty';
+      maintEmpty.className = 'horizon-empty';
+      maintEmpty.textContent = 'No items match the current filter';
+      maintGrid.parentElement.appendChild(maintEmpty);
+    }
+    maintEmpty.style.display = maintVisible ? 'none' : '';
+  }
+
+  // Update count + reset button visibility
+  var anyActive = (activeOrigin !== 'all' || activeSi !== 'all' || activeType !== 'all');
+  var countEl = document.getElementById('filter-count');
+  if (countEl) {
+    countEl.textContent = anyActive
+      ? visible + ' item' + (visible !== 1 ? 's' : '') + ' shown'
+      : '';
+  }
+  var resetEl = document.getElementById('filter-reset');
+  if (resetEl) resetEl.hidden = !anyActive;
+}
+
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showEvSub(name, btn) {
+  document.querySelectorAll('.ev-subtab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.ev-subtab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('evsub-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+
+<div id="give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" class="give-freely-root" data-extension-id="bcjindcccaagfpapjjmafapmmgkkhgoa" data-extension-name="JSON Formatter" style="display: block;"><template shadowrootmode="open"><style>
+  :host {
+    all: initial;
+  }
+
+  .gf-scroll-remove::-webkit-scrollbar {
+    border-radius-bottom-right: 15px;
+  }
+
+  button {
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .give-freely-close-button:hover {
+    opacity: 0.7;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 1em 0;
+  }
+
+  dialog::backdrop  {
+    background-color: revert;
+  }
+
+  dialog.backdrop-hidden::backdrop  {
+    background-color: transparent;
+  }
+</style><div><div class="gf-app"></div></div></template></div><div id="mem-ext-shadow-host" style="color-scheme: initial !important; forced-color-adjust: initial !important; math-depth: initial !important; position-anchor: initial !important; text-size-adjust: initial !important; appearance: initial !important; font: initial !important; font-palette: initial !important; font-synthesis: initial !important; position-area: initial !important; text-orientation: initial !important; text-rendering: initial !important; text-spacing-trim: initial !important; -webkit-font-smoothing: initial !important; -webkit-locale: initial !important; -webkit-text-orientation: initial !important; -webkit-writing-mode: initial !important; writing-mode: initial !important; zoom: initial !important; accent-color: initial !important; place-content: initial !important; place-items: initial !important; place-self: initial !important; alignment-baseline: initial !important; anchor-name: initial !important; anchor-scope: initial !important; animation-composition: initial !important; animation: initial !important; animation-trigger: initial !important; app-region: initial !important; aspect-ratio: initial !important; backface-visibility: initial !important; background: initial !important; background-blend-mode: initial !important; baseline-shift: initial !important; baseline-source: initial !important; block-size: initial !important; border-block: initial !important; border: initial !important; border-radius: initial !important; border-collapse: initial !important; border-end-end-radius: initial !important; border-end-start-radius: initial !important; border-inline: initial !important; border-shape: initial !important; border-start-end-radius: initial !important; border-start-start-radius: initial !important; bottom: initial !important; box-decoration-break: initial !important; box-shadow: initial !important; box-sizing: initial !important; break-after: initial !important; break-before: initial !important; break-inside: initial !important; buffered-rendering: initial !important; caption-side: initial !important; caret-animation: initial !important; caret-color: initial !important; caret-shape: initial !important; clear: initial !important; clip: initial !important; clip-path: initial !important; clip-rule: initial !important; color-interpolation: initial !important; color-interpolation-filters: initial !important; color-rendering: initial !important; columns: initial !important; column-fill: initial !important; gap: initial !important; column-rule: initial !important; column-span: initial !important; contain: initial !important; contain-intrinsic-block-size: initial !important; contain-intrinsic-size: initial !important; contain-intrinsic-inline-size: initial !important; container: initial !important; content: initial !important; content-visibility: initial !important; corner-shape: initial !important; corner-block-end-shape: initial !important; corner-block-start-shape: initial !important; counter-increment: initial !important; counter-reset: initial !important; counter-set: initial !important; cursor: initial !important; cx: initial !important; cy: initial !important; d: initial !important; display: initial !important; dominant-baseline: initial !important; dynamic-range-limit: initial !important; empty-cells: initial !important; field-sizing: initial !important; fill: initial !important; fill-opacity: initial !important; fill-rule: initial !important; filter: initial !important; flex: initial !important; flex-flow: initial !important; float: initial !important; flood-color: initial !important; flood-opacity: initial !important; grid: initial !important; grid-area: initial !important; hyphenate-character: initial !important; hyphenate-limit-chars: initial !important; hyphens: initial !important; image-orientation: initial !important; image-rendering: initial !important; initial-letter: initial !important; inline-size: initial !important; inset-block: initial !important; inset-inline: initial !important; interactivity: initial !important; interest-delay: initial !important; interpolate-size: initial !important; letter-spacing: initial !important; lighting-color: initial !important; line-break: initial !important; list-style: initial !important; margin-block: initial !important; margin: initial !important; margin-inline: initial !important; marker: initial !important; mask: initial !important; mask-type: initial !important; math-shift: initial !important; math-style: initial !important; max-block-size: initial !important; max-height: initial !important; max-inline-size: initial !important; max-width: initial !important; min-block-size: initial !important; min-height: initial !important; min-inline-size: initial !important; min-width: initial !important; mix-blend-mode: initial !important; object-fit: initial !important; object-position: initial !important; object-view-box: initial !important; offset: initial !important; opacity: initial !important; order: initial !important; orphans: initial !important; outline: initial !important; outline-offset: initial !important; overflow-anchor: initial !important; overflow-block: initial !important; overflow-clip-margin: initial !important; overflow-inline: initial !important; overflow-wrap: initial !important; overflow: initial !important; overlay: initial !important; overscroll-behavior-block: initial !important; overscroll-behavior-inline: initial !important; overscroll-behavior: initial !important; padding-block: initial !important; padding: initial !important; padding-inline: initial !important; page: initial !important; page-orientation: initial !important; paint-order: initial !important; perspective: initial !important; perspective-origin: initial !important; position-try: initial !important; position-visibility: initial !important; print-color-adjust: initial !important; quotes: initial !important; r: initial !important; reading-flow: initial !important; reading-order: initial !important; resize: initial !important; right: initial !important; rotate: initial !important; ruby-align: initial !important; ruby-position: initial !important; rx: initial !important; ry: initial !important; scale: initial !important; scroll-behavior: initial !important; scroll-initial-target: initial !important; scroll-margin-block: initial !important; scroll-margin: initial !important; scroll-margin-inline: initial !important; scroll-marker-group: initial !important; scroll-padding-block: initial !important; scroll-padding: initial !important; scroll-padding-inline: initial !important; scroll-snap-align: initial !important; scroll-snap-stop: initial !important; scroll-snap-type: initial !important; scroll-target-group: initial !important; scroll-timeline: initial !important; scrollbar-color: initial !important; scrollbar-gutter: initial !important; scrollbar-width: initial !important; shape-image-threshold: initial !important; shape-margin: initial !important; shape-outside: initial !important; shape-rendering: initial !important; size: initial !important; speak: initial !important; stop-color: initial !important; stop-opacity: initial !important; stroke: initial !important; stroke-dasharray: initial !important; stroke-dashoffset: initial !important; stroke-linecap: initial !important; stroke-linejoin: initial !important; stroke-miterlimit: initial !important; stroke-opacity: initial !important; stroke-width: initial !important; tab-size: initial !important; table-layout: initial !important; text-align: initial !important; text-align-last: initial !important; text-anchor: initial !important; text-autospace: initial !important; text-box: initial !important; text-combine-upright: initial !important; text-decoration: initial !important; text-decoration-skip-ink: initial !important; text-emphasis: initial !important; text-emphasis-position: initial !important; text-indent: initial !important; text-justify: initial !important; text-overflow: initial !important; text-shadow: initial !important; text-transform: initial !important; text-underline-offset: initial !important; text-underline-position: initial !important; text-wrap: initial !important; timeline-scope: initial !important; timeline-trigger: initial !important; touch-action: initial !important; transform: initial !important; transform-box: initial !important; transform-origin: initial !important; transform-style: initial !important; transition: initial !important; translate: initial !important; trigger-scope: initial !important; user-select: initial !important; vector-effect: initial !important; vertical-align: initial !important; view-timeline: initial !important; view-transition-class: initial !important; view-transition-group: initial !important; view-transition-name: initial !important; view-transition-scope: initial !important; visibility: initial !important; border-spacing: initial !important; -webkit-box-align: initial !important; -webkit-box-decoration-break: initial !important; -webkit-box-direction: initial !important; -webkit-box-flex: initial !important; -webkit-box-ordinal-group: initial !important; -webkit-box-orient: initial !important; -webkit-box-pack: initial !important; -webkit-box-reflect: initial !important; -webkit-line-break: initial !important; -webkit-line-clamp: initial !important; -webkit-mask-box-image: initial !important; -webkit-rtl-ordering: initial !important; -webkit-ruby-position: initial !important; -webkit-tap-highlight-color: initial !important; -webkit-text-combine: initial !important; -webkit-text-decorations-in-effect: initial !important; -webkit-text-fill-color: initial !important; -webkit-text-security: initial !important; -webkit-text-stroke: initial !important; -webkit-user-drag: initial !important; white-space-collapse: initial !important; widows: initial !important; will-change: initial !important; word-break: initial !important; word-spacing: initial !important; x: initial !important; y: initial !important; position: fixed !important; top: 0px !important; left: 0px !important; width: 100% !important; height: 100% !important; pointer-events: none !important; z-index: 2147483647 !important; color: var(--color-grey-700) !important; isolation: isolate !important; backdrop-filter: none !important;"><template shadowrootmode="closed"><style>
+
+    </style><div id="mem-ext-root" data-mem-extension="true"><div class="mem-ext-1qvf6io" style="opacity: 1;"><div class="mem-ext-plpen7"></div></div></div><style data-emotion="mem-ext-global" data-s=""></style><style data-emotion="mem-ext" data-s=""></style></template></div></body></html>
