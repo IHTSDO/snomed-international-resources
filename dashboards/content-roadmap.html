@@ -194,6 +194,40 @@ header{background:var(--navy);color:#fff;padding:0 40px}
 .trig-not-assessed     {background:#FEF3C7;color:#92400E;border-color:#FDE68A}
 .card-asked{font-size:13px;color:#334155;line-height:1.35;margin-bottom:4px;padding:4px 7px;background:rgba(37,99,235,.06);border-radius:3px;border-left:2px solid #2563EB}
 .asked-label{font-weight:700;color:#1E40AF;font-size:9px;text-transform:uppercase;letter-spacing:.3px;margin-right:3px}
+
+/* ── Level 0 / expand-in-place cards ── */
+.rm-card{cursor:pointer}
+.card-expand{margin-left:auto;font-size:11px;color:#64748B;transition:transform .15s;flex-shrink:0}
+.rm-card.expanded .card-expand{transform:rotate(180deg)}
+.l0-line{font-size:13px;color:#334155;line-height:1.35;margin-top:3px;display:flex;gap:6px;align-items:baseline}
+.l0-key{font-weight:700;font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:#64748B;flex-shrink:0;min-width:26px}
+.l0-ask .l0-key{color:#1E40AF}
+.card-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.15)}
+.rm-card.expanded .card-detail{display:block}
+.rm-card.expanded .l0-line{display:none}
+
+/* "Does this address the ask?" honesty line */
+.card-suff{font-size:13px;color:#334155;line-height:1.35;margin-bottom:4px;padding:4px 7px;background:rgba(0,0,0,.03);border-radius:3px}
+.suff-label{font-weight:700;font-size:9px;text-transform:uppercase;letter-spacing:.3px;color:#475569;margin-right:3px}
+.suff-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:8px;white-space:nowrap}
+.suff-yes    {background:#2E7D32;color:#fff}
+.suff-partial{background:#B45309;color:#fff}
+.suff-no     {background:#B71C1C;color:#fff}
+.suff-note{color:#475569}
+
+/* Implementation impact — coloured banner so it doesn't get lost */
+.card-impact{font-size:13px;line-height:1.4;margin:6px 0;padding:6px 9px;border-radius:4px}
+.card-impact.imp-band-low   {background:#E8F5E9;border-left:4px solid #2E7D32;color:#1B5E20}
+.card-impact.imp-band-medium{background:#FFF3E0;border-left:4px solid #E65100;color:#7C3E00}
+.card-impact.imp-band-high  {background:#FDECEA;border-left:4px solid #B71C1C;color:#7F1D1D}
+.imp-label{font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.4px;margin-right:4px}
+.imp-pill{font-size:12px;font-weight:800;padding:2px 9px;border-radius:9px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
+.imp-low   {background:#2E7D32;color:#fff}
+.imp-medium{background:#E65100;color:#fff}
+.imp-high  {background:#B71C1C;color:#fff}
+.imp-note{display:block;margin-top:2px}
+/* Compact impact pill shown on the collapsed (Level 0) card */
+.imp-mini{font-size:10px;font-weight:800;padding:1px 7px;border-radius:8px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0;margin-left:4px}
 .tentative-note{color:var(--grey);font-style:italic;font-size:9px;margin-left:3px}
 
 /* ── Under Assessment sub-buckets ── */
@@ -542,110 +576,179 @@ footer a{color:#0DA9E0}
           <div class="horizon-count">11</div>
         </div>
         <div class="horizon-items">
-          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Substances</div>
-            <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Substances identified by the EMA being added as identified</div><div class="card-progress">Substances from national extensions have been promoted.  EMA substances being added.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Substances needed to define clinical drugs.</div>
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #2</span></div>
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Substances needed to define clinical drugs.</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Substances identified by the EMA being added as identified</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Substances identified by the EMA being added as identified</div><div class="card-progress">Substances from national extensions have been promoted.  EMA substances being added.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Substances needed to define clinical drugs.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #2</span></div>
+            </div>
           </div>
-          <div class="rm-card wg" data-si="in-delivery" data-type="wg" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card wg" data-si="in-delivery" data-type="wg" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Drug extension model</div>
-            <span class="card-type-label type-wg">Working Group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#x27;s roadmap before members raised it.">Member-driven (started)</span>
-            <div class="card-activity">Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div><div class="card-progress">Issues being addressed by the DEUSG.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div>
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #4</span></div>
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Additional concept model attributes to support extension specific real clinical drugs…</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Additional concept model attributes to support extension specific real clinical drugs…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-wg">Working Group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#x27;s roadmap before members raised it.">Member-driven (started)</span>
+              <div class="card-activity">Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div><div class="card-progress">Issues being addressed by the DEUSG.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Additional concept model attributes to support extension specific real clinical drugs (RCDs)</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #4</span></div>
+            </div>
           </div>
-          <div class="rm-card qa" data-si="in-delivery" data-type="qa" data-seoul="1" data-antwerp="1" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card qa" data-si="in-delivery" data-type="qa" data-seoul="1" data-antwerp="1" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="imp-mini imp-high" title="Implementation impact: High - QA changes (e.g. stoma / gastrojejunal junction) alter GI tract classification links used in downstream drug-disease checking">Impact: High</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Surgical procedures</div>
-            <span class="card-type-label type-qa">QA Programme</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Being addressed as part of QA</div><div class="card-progress">Updates to modeling performed for endoscopy, surgical replacement, stoma procedures, radical excision.  Revision of bypass procedures, reattachment underway.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Suggestion that there were significant gaps in the surgical procedure hierarchy.</div>
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #5</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Suggestion that there were significant gaps in the surgical procedure hierarchy.</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Being addressed as part of QA</div>
+            <div class="card-detail">
+              <span class="card-type-label type-qa">QA Programme</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Being addressed as part of QA</div><div class="card-progress">Updates to modeling performed for endoscopy, surgical replacement, stoma procedures, radical excision.  Revision of bypass procedures, reattachment underway.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Suggestion that there were significant gaps in the surgical procedure hierarchy.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-no">No</span> <span class="suff-note">significant gap</span></div>
+              <div class="card-impact imp-band-high"><span class="imp-label">Implementation impact:</span><span class="imp-pill imp-high">High</span><span class="imp-note">QA changes (e.g. stoma / gastrojejunal junction) alter GI tract classification links used in downstream drug-disease checking</span></div>
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #5</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            </div>
           </div>
-          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Cancer</div>
-            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">AJCC/UICC collaborations;
+            
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>AJCC/UICC collaborations;
+Cancer synoptic reporting WG;
+ICCR collaboration
+Histology…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">AJCC/UICC collaborations;
 Cancer synoptic reporting WG;
 ICCR collaboration
 Histology Quality Project</div><div class="card-progress">All current AJCC and UICC content have been added to the International release. Cancer synoptyic reporting observables created. Review of current neoplasm…</div>
-            
-            <div class="card-milestone"><span class="ms-label">Next:</span> Annual updates from AJCC and UICC provided to SI - November 2026</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #7</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> Annual updates from AJCC and UICC provided to SI - November 2026</div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #7</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            </div>
           </div>
-          <div class="rm-card wg" data-si="in-delivery" data-type="wg" data-seoul="1" data-antwerp="1" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card wg" data-si="in-delivery" data-type="wg" data-seoul="1" data-antwerp="1" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Organisms</div>
-            <span class="card-type-label type-wg">Working Group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#x27;s roadmap before members raised it.">Member-driven (started)</span>
-            <div class="card-activity">Microbiology Working Group</div><div class="card-progress">Over 800 organisms (bacteria and viruses) were promoted from national extensions.  Following the completion of that work the group was sunsetted.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Addition of new organism content from extensions.  Updating antimicrobial senstiivity concepts. Addition of new bacterial morphology concepts.</div>
-            <div class="card-milestone"><span class="ms-label">Next:</span> Formation of project group - June 2026</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #8</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Addition of new organism content from extensions.  Updating antimicrobial senstiivity…</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Microbiology Working Group</div>
+            <div class="card-detail">
+              <span class="card-type-label type-wg">Working Group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-started" data-tip="Member-driven (started) · SI initiated this work in direct response to a member request, survey, or workshop signal. Not on SI&#x27;s roadmap before members raised it.">Member-driven (started)</span>
+              <div class="card-activity">Microbiology Working Group</div><div class="card-progress">Over 800 organisms (bacteria and viruses) were promoted from national extensions.  Following the completion of that work the group was sunsetted.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Addition of new organism content from extensions.  Updating antimicrobial senstiivity concepts. Addition of new bacterial morphology concepts.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> Formation of project group - June 2026</div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #8</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            </div>
           </div>
-          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Social determinants of health</div>
-            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Gravity project participation</div><div class="card-progress">Backlog of requests completed; ongoing requests as needed. Now BAU</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #9</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Gravity project participation</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Gravity project participation</div><div class="card-progress">Backlog of requests completed; ongoing requests as needed. Now BAU</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #9</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            </div>
           </div>
-          <div class="rm-card planning" data-si="in-delivery" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="1">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card planning" data-si="in-delivery" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="1" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Mental health</div>
-            <span class="card-type-label type-planning">Project group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Formation and organization of Mental Health Project Group.</div><div class="card-progress">Formation of Mental Health Project.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Improve currency and quality of mental health disorders</div>
-            <div class="card-milestone"><span class="ms-label">Next:</span> Q4 2026
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Improve currency and quality of mental health disorders</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Formation and organization of Mental Health Project Group.</div>
+            <div class="card-detail">
+              <span class="card-type-label type-planning">Project group</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Formation and organization of Mental Health Project Group.</div><div class="card-progress">Formation of Mental Health Project.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Improve currency and quality of mental health disorders</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> Q4 2026
 Identification of work area priorities.
 Review and revision of bipolar disorder</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #11</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #11</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            </div>
           </div>
-          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Rare diseases</div>
-            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">InSerm/Orphanet collaboration</div><div class="card-progress">Continued addition and updating of rare diseases at the disorder level.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Addition of rare disease subtypes.</div>
-            <div class="card-milestone"><span class="ms-label">Next:</span> 2026
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Addition of rare disease subtypes.</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>InSerm/Orphanet collaboration</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">InSerm/Orphanet collaboration</div><div class="card-progress">Continued addition and updating of rare diseases at the disorder level.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Addition of rare disease subtypes.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> 2026
 Determination of whether disease subtypes canbe added</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #14</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #14</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            </div>
           </div>
-          <div class="rm-card planning" data-si="in-delivery" data-type="planning" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card planning" data-si="in-delivery" data-type="planning" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Epilepsy</div>
-            <span class="card-type-label type-planning">Project group</span><span class="nature-badge nature-project">Project</span>
-            <div class="card-activity">Update of content to alingn with ILAE classifications</div><div class="card-progress">Most seizures and epileptic diseases have been reviewed and remodeled to conform to ILAE guidelines.</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">SI Initiated</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Update of content to alingn with ILAE classifications</div>
+            <div class="card-detail">
+              <span class="card-type-label type-planning">Project group</span><span class="nature-badge nature-project">Project</span>
+              <div class="card-activity">Update of content to alingn with ILAE classifications</div><div class="card-progress">Most seizures and epileptic diseases have been reviewed and remodeled to conform to ILAE guidelines.</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">SI Initiated</span></div>
+            </div>
           </div>
-          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">MedDRA</div>
-            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
-            <div class="card-activity">Collaboration to create and maintain bi-directional maps between SNOMED CT and MedDRA</div><div class="card-progress">Published updated map</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">SI Collaboration</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Collaboration to create and maintain bi-directional maps between SNOMED CT and MedDRA</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
+              <div class="card-activity">Collaboration to create and maintain bi-directional maps between SNOMED CT and MedDRA</div><div class="card-progress">Published updated map</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">SI Collaboration</span></div>
+            </div>
           </div>
-          <div class="rm-card qa" data-si="in-delivery" data-type="qa" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card qa" data-si="in-delivery" data-type="qa" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Anatomy</div>
-            <span class="card-type-label type-qa">QA Programme</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
-            <div class="card-activity">Long-term, foundational initiative to overhaul and standardize the Body Structure hierarchy in SNOMED CT.</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">QA Programme</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Long-term, foundational initiative to overhaul and standardize the Body Structure…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-qa">QA Programme</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
+              <div class="card-activity">Long-term, foundational initiative to overhaul and standardize the Body Structure hierarchy in SNOMED CT.</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">QA Programme</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -658,37 +761,56 @@ Determination of whether disease subtypes canbe added</div>
           <div class="horizon-count">3</div>
         </div>
         <div class="horizon-items">
-          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="1" data-antwerp="1" data-vienna="1">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="1" data-antwerp="1" data-vienna="1" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Imaging</div>
-            <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Addressed as part of the QA programme
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Increase quality and coverage for imaging procedures.  Reduce backlog of imaging content…</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Addressed as part of the QA programme
+Radiology project launched April 2026</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Addressed as part of the QA programme
 Radiology project launched April 2026</div><div class="card-progress">Radiography hierarchy has been reviewed and updated.  Imaging content from national extensions currently being promoted to the International release. Formation…</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Increase quality and coverage for imaging procedures.  Reduce backlog of imaging content requests,; promote content from extensions.</div>
-            <div class="card-milestone"><span class="ms-label">Next:</span> 2026-27 
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Increase quality and coverage for imaging procedures.  Reduce backlog of imaging content requests,; promote content from extensions.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> 2026-27 
 Review of new content proposals from members; deduplication and addition to the…</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #3</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #3</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            </div>
           </div>
-          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Genomics</div>
-            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Working with HPO. Review of candidate map; identification of scope; editorial guidance; content addition</div><div class="card-progress">Content addition begun.
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Coverage of phenotypes, molecular diagnostics.</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Working with HPO. Review of candidate map; identification of scope; editorial guidance;…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Working with HPO. Review of candidate map; identification of scope; editorial guidance; content addition</div><div class="card-progress">Content addition begun.
 Map validation underway</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Coverage of phenotypes, molecular diagnostics.</div>
-            <div class="card-milestone"><span class="ms-label">Next:</span> Q3 2026 
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Coverage of phenotypes, molecular diagnostics.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> Q3 2026 
 Editorial principles
 Measurement findings added</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #16</span></div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #16</span></div>
+            </div>
           </div>
-          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab-auth" data-si="in-delivery" data-type="collab-auth" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Kidney biopsy codes</div>
-            <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span>
-            <div class="card-activity">Update of content in the SNOMED CT International release to provide clinical codes for describing both morphological…</div><div class="card-progress">Collaborative authors in training</div>
             
-            <div class="card-milestone"><span class="ms-label">Next:</span> External authors trained - Q4 2026</div>
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Collab. Authoring</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Update of content in the SNOMED CT International release to provide clinical codes for…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab-auth">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span>
+              <div class="card-activity">Update of content in the SNOMED CT International release to provide clinical codes for describing both morphological…</div><div class="card-progress">Collaborative authors in training</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> External authors trained - Q4 2026</div>
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Collab. Authoring</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -701,14 +823,20 @@ Measurement findings added</div>
           <div class="horizon-count">1</div>
         </div>
         <div class="horizon-items">
-          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card collab" data-si="in-delivery" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="1" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Laboratory (observations)</div>
-            <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">LOINC/NPU collaboration</div><div class="card-progress">Three releases of the LOINC extension has been published.  More than 45,000 laboratory obsevables covering &gt;97% of laboratory results included.</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Increase coverage of laboratory observations.  Content increased by 45,000 terms in latest LOINC extension.</div>
-            <div class="card-milestone"><span class="ms-label">Next:</span> Next release of LOINC extension to include some molecular diagnostics.  September 2026</div>
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #1</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Increase coverage of laboratory observations.  Content increased by 45,000 terms in…</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>LOINC/NPU collaboration</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">LOINC/NPU collaboration</div><div class="card-progress">Three releases of the LOINC extension has been published.  More than 45,000 laboratory obsevables covering &gt;97% of laboratory results included.</div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Increase coverage of laboratory observations.  Content increased by 45,000 terms in latest LOINC extension.</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> Next release of LOINC extension to include some molecular diagnostics.  September 2026</div>
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #1</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -721,96 +849,157 @@ Measurement findings added</div>
           <div class="horizon-count">10</div>
         </div>
         <div class="horizon-items"><div class="assess-sub-head">Paused<span class="assess-sub-count">3</span></div>
-          <div class="rm-card assessing" data-si="paused" data-type="crg" data-seoul="0" data-antwerp="1" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span></div>
+          <div class="rm-card assessing" data-si="paused" data-type="crg" data-seoul="0" data-antwerp="1" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Allergies</div>
-            <span class="card-type-label type-assessing">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
-            <div class="card-activity">Allergy CRG</div><div class="card-progress">No activity by the CRG since early 2024</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Allergy CRG</div>
+            <div class="card-detail">
+              <span class="card-type-label type-assessing">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
+              <div class="card-activity">Allergy CRG</div><div class="card-progress">No activity by the CRG since early 2024</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="paused" data-type="collab" data-seoul="0" data-antwerp="1" data-vienna="1">
-            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span></div>
+          <div class="rm-card assessing" data-si="paused" data-type="collab" data-seoul="0" data-antwerp="1" data-vienna="1" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">ICD-11 alignment</div>
-            <span class="card-type-label type-assessing">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">SNOMED/WHO collaboration discussions</div><div class="card-progress">No progress on determining a path forward.</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>SNOMED/WHO collaboration discussions</div>
+            <div class="card-detail">
+              <span class="card-type-label type-assessing">Collaboration</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">SNOMED/WHO collaboration discussions</div><div class="card-progress">No progress on determining a path forward.</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-no">No</span> <span class="suff-note">significant gap</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span><span class="prov-chip chip-vienna" data-tip="Vienna &#x27;26: April 2026 Member Forum quality workshop. 9 NRC groups; used to validate Seoul priorities 18 months on.">Vienna '26</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="paused" data-type="collab-auth" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span></div>
+          <div class="rm-card assessing" data-si="paused" data-type="collab-auth" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-paused">Paused</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Microbiology</div>
-            <span class="card-type-label type-assessing">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span>
-            <div class="card-activity">Project raised by Denmark that they have content at MF January 2026</div><div class="card-progress">Promotion of extension content to the International release</div>
             
-            <div class="card-milestone"><span class="ms-label">Next:</span> Awaiting project proposal from Denmark</div>
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Collab. Authoring</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Project raised by Denmark that they have content at MF January 2026</div>
+            <div class="card-detail">
+              <span class="card-type-label type-assessing">Collaborative Authoring</span><span class="nature-badge nature-project">Project</span>
+              <div class="card-activity">Project raised by Denmark that they have content at MF January 2026</div><div class="card-progress">Promotion of extension content to the International release</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> Awaiting project proposal from Denmark</div>
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Collab. Authoring</span></div>
+            </div>
           </div><div class="assess-sub-head">Declined (with reason)<span class="assess-sub-count">1</span></div>
-          <div class="rm-card assessing" data-si="deferred" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-deferred">Deferred</span><span class="gap-warn" title="High member demand with no active SI delivery">⚠ Gap</span></div>
+          <div class="rm-card assessing" data-si="deferred" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-deferred">Deferred</span><span class="gap-warn" title="High member demand with no active SI delivery">⚠ Gap</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Preventive care (incl. vaccines)</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-declined" data-tip="Declined (with reason) · Member request considered and deliberately not taken up this cycle. Rationale is on file; members can re-raise next cycle.">Declined (with reason)</span>
-            <div class="card-activity">No dedicated project: listed as HIGH priority gap (Nov 2024 deck)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #6</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as HIGH priority gap (Nov 2024 deck)</div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-declined" data-tip="Declined (with reason) · Member request considered and deliberately not taken up this cycle. Rationale is on file; members can re-raise next cycle.">Declined (with reason)</span>
+              <div class="card-activity">No dedicated project: listed as HIGH priority gap (Nov 2024 deck)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #6</span></div>
+            </div>
           </div><div class="assess-sub-head">Not yet assessed<span class="assess-sub-count">6</span></div>
-          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="gap-warn" title="High member demand with no active SI delivery">⚠ Gap</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="gap-warn" title="High member demand with no active SI delivery">⚠ Gap</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Interventions</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
-            <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #10</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+              <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #10</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Measurement procedures</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
-            <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #12</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+              <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #12</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Functioning</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
-            <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #13</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+              <div class="card-activity">No dedicated project: listed as Moderate priority gap (Nov 2024 deck)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #13</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Outpatient procedures</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
-            <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #15</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+              <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #15</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Cardiology disorders</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
-            <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #17</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+              <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #17</span></div>
+            </div>
           </div>
-          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span></div>
+          <div class="rm-card assessing" data-si="no-activity" data-type="planning" data-seoul="1" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-gap">No activity yet</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Surveillance</div>
-            <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
-            <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)
+            
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>No dedicated project: listed as Low priority gap (Nov 2024 deck)
 (Zero survey responses)</div>
-            
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #19</span></div>
+            <div class="card-detail">
+              <span class="nature-badge nature-project">Project</span><span class="card-trigger trig-not-assessed" data-tip="Not yet assessed · Item raised but not yet reviewed by SI. Target: review before the next 6-monthly report.">Not yet assessed</span>
+              <div class="card-activity">No dedicated project: listed as Low priority gap (Nov 2024 deck)
+(Zero survey responses)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #19</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -822,73 +1011,110 @@ Measurement findings added</div>
         <span class="delivered-count">6</span>
       </div>
       <div class="delivered-grid">
-          <div class="rm-card collab" data-si="delivered" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span></div>
+          <div class="rm-card collab" data-si="delivered" data-type="collab" data-seoul="1" data-antwerp="1" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Veterinary medicine</div>
-            <span class="card-type-label type-collab">Extension</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
-            <div class="card-activity">Promotion to extension in community content area
+            <div class="l0-line l0-ask"><span class="l0-key">Ask</span>Create a formal veterinary extension</div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Promotion to extension in community content area
+(VetSCT: communication with owners…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-collab">Extension</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-member-accelerated" data-tip="Member-driven (accelerated) · SI was already working on this; member signal brought forward priority, expanded scope, or deepened the collaboration.">Member-driven (accelerated)</span>
+              <div class="card-activity">Promotion to extension in community content area
 (VetSCT: communication with owners underway)</div><div class="card-progress">First formal extension released</div>
-            <div class="card-asked"><span class="asked-label">Members asked for:</span> Create a formal veterinary extension</div>
-            
-            <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #18</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+              <div class="card-asked"><span class="asked-label">Members asked for:</span> Create a formal veterinary extension</div>
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-seoul" data-tip="Seoul &#x27;24: October 2024 member priority survey (n=23 NRCs). Quantitative ranking of 19 content gaps.">Seoul '24 #18</span><span class="prov-chip chip-antwerp" data-tip="Antwerp &#x27;25: October 2025 qualitative implementation workshop. 16 countries, 25+ use cases.">Antwerp '25</span></div>
+            </div>
           </div>
-          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Dentistry</div>
-            <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
-            <div class="card-activity">Dentistry CRG</div><div class="card-progress">Addition of dental radiology
+            
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Dentistry CRG</div>
+            <div class="card-detail">
+              <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
+              <div class="card-activity">Dentistry CRG</div><div class="card-progress">Addition of dental radiology
 Update general dentistry refset
 Update of odontogram refset
 Update of dentistry procedures</div>
-            
-            <div class="card-milestone"><span class="ms-label">Next:</span> End of 2026
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-partial">Partially</span> <span class="suff-note">needs more</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> End of 2026
 Addition of international caries detection and assessment system
 Additional dental…</div>
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">CRG</span></div>
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">CRG</span></div>
+            </div>
           </div>
-          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Nutrition</div>
-            <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
-            <div class="card-activity">Nutrition CRG</div><div class="card-progress">Update of NCPT refset to include all of NCPT terminology.
-Update of obesity terminology</div>
             
-            <div class="card-milestone"><span class="ms-label">Next:</span> 2026-2027
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Nutrition CRG</div>
+            <div class="card-detail">
+              <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-continuous">Continuous</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
+              <div class="card-activity">Nutrition CRG</div><div class="card-progress">Update of NCPT refset to include all of NCPT terminology.
+Update of obesity terminology</div>
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> 2026-2027
 Resolution of BMI issues
 Dietary findings review
 Dietary products</div>
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">CRG</span></div>
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">CRG</span></div>
+            </div>
           </div>
-          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span></div>
+          <div class="rm-card crg" data-si="in-delivery" data-type="crg" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivery">Active</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Ophthalmology</div>
-            <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
-            <div class="card-activity">Ophthalmology CRG</div><div class="card-progress">Review of glaucoma
+            
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Ophthalmology CRG</div>
+            <div class="card-detail">
+              <span class="card-type-label type-crg">CRG</span><span class="nature-badge nature-project">Project</span><span class="card-trigger trig-pre-existing" data-tip="Pre-existing aligned · Work was already underway (CRG, collaboration, contractual) and happens to align with what members later requested. Not driven by this cycle&#x27;s signal.">Pre-existing aligned</span>
+              <div class="card-activity">Ophthalmology CRG</div><div class="card-progress">Review of glaucoma
 Addition of devices
 Lateralitzed content</div>
-            
-            <div class="card-milestone"><span class="ms-label">Next:</span> 2026
+              
+              <div class="card-suff"><span class="suff-label">Does this address the ask?</span> <span class="suff-pill suff-yes">Yes</span> <span class="suff-note">sufficient</span></div>
+              
+              <div class="card-milestone"><span class="ms-label">Next:</span> 2026
 Final report of glaucoma to Int&#x27;l societies
 Review of nystagmus</div>
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">CRG</span></div>
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">CRG</span></div>
+            </div>
           </div>
-          <div class="rm-card members" data-si="delivered" data-type="members" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span></div>
+          <div class="rm-card members" data-si="delivered" data-type="members" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Member Content Requests (CRS)</div>
-            <span class="card-type-label type-members">Members</span><span class="nature-badge nature-continuous">Continuous</span>
-            <div class="card-activity">Ongoing pipeline of content change requests submitted by member NRCs via JIRA CRS. Includes new concept requests,…</div><div class="card-progress">Initiated by: Member NRCs (via JIRA CRS)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Member-Driven</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Ongoing pipeline of content change requests submitted by member NRCs via JIRA CRS.…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-members">Members</span><span class="nature-badge nature-continuous">Continuous</span>
+              <div class="card-activity">Ongoing pipeline of content change requests submitted by member NRCs via JIRA CRS. Includes new concept requests,…</div><div class="card-progress">Initiated by: Member NRCs (via JIRA CRS)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Member-Driven</span></div>
+            </div>
           </div>
-          <div class="rm-card members" data-si="delivered" data-type="members" data-seoul="0" data-antwerp="0" data-vienna="0">
-            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span></div>
+          <div class="rm-card members" data-si="delivered" data-type="members" data-seoul="0" data-antwerp="0" data-vienna="0" onclick="toggleCard(this, event)">
+            <div class="card-top-row"><span class="si-badge badge-delivered">In Maintenance</span><span class="card-expand" aria-hidden="true">▾</span></div>
             <div class="card-title">Translation Group Requests</div>
-            <span class="card-type-label type-members">Members</span><span class="nature-badge nature-continuous">Continuous</span>
-            <div class="card-activity">Content additions and changes requested by national translation teams to support extension and national release work.…</div><div class="card-progress">Initiated by: National translation teams (internal to SI or member NRCs)</div>
             
-            
-            <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Member-Driven</span></div>
+            <div class="l0-line l0-act"><span class="l0-key">Now</span>Content additions and changes requested by national translation teams to support…</div>
+            <div class="card-detail">
+              <span class="card-type-label type-members">Members</span><span class="nature-badge nature-continuous">Continuous</span>
+              <div class="card-activity">Content additions and changes requested by national translation teams to support extension and national release work.…</div><div class="card-progress">Initiated by: National translation teams (internal to SI or member NRCs)</div>
+              
+              
+              
+              
+              <div class="card-prov"><span class="prov-chip chip-si" data-tip="No member event signal. Shows the activity type instead (CRG, QA Programme, etc.). &#x27;SI Initiated&#x27; appears only when the activity type is also blank.">Member-Driven</span></div>
+            </div>
           </div>
       </div>
     </div>
@@ -1218,7 +1444,7 @@ Histology Quality Project</div></div><div class="t5-field"><span class="t5-field
       </tr></thead>
       <tbody>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#1.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#1</td>
             <td style="font-weight:600;width:170px">Diagnostic Procedures</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Multi-country</td>
             <td style="font-size:14px">Inconsistent naming/modelling of percutaneous procedures (e.g. nephrostomy with CT guidance);
@@ -1227,7 +1453,7 @@ missing generic procedures (e.g. &#x27;with or without contrast&#x27;)</td>
 Interventions (#10)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#2.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#2</td>
             <td style="font-weight:600;width:170px">Specimen Content</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Multi-country</td>
             <td style="font-size:14px">Incomplete modelling of viruses and organisms;
@@ -1237,7 +1463,7 @@ fragmented content derived from veterinary extensions</td>
 Organisms (#8)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#3.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#3</td>
             <td style="font-weight:600;width:170px">One Health Initiatives</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Australia, multi-country</td>
             <td style="font-size:14px">Gaps/inconsistencies in virus naming and hierarchy;
@@ -1246,7 +1472,7 @@ inconsistent links between organisms and clinical findings</td>
 Surveillance (#19)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#4.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#4</td>
             <td style="font-weight:600;width:170px">Rare Diseases, ICF &amp; Mental Health</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Belgium, multi-country</td>
             <td style="font-size:14px">Gaps in rare disease and DSM content;
@@ -1256,7 +1482,7 @@ Mental health (#11)
 Functioning (#13)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#5.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#5</td>
             <td style="font-weight:600;width:170px">Organisms &amp; Microbiology Findings</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Sweden, multi-country</td>
             <td style="font-size:14px">Outdated organism names;
@@ -1265,7 +1491,7 @@ inconsistent QA on susceptibility testing results</td>
             <td style="font-size:13px;color:var(--grey)">Organisms (#8)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#6.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#6</td>
             <td style="font-weight:600;width:170px">Pregnancy Records</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Denmark</td>
             <td style="font-size:14px">Missing or incorrect concepts (e.g. lab unit errors: 10*6/L instead of 10^6/L);
@@ -1273,7 +1499,7 @@ patient safety implications in clinical systems</td>
             <td style="font-size:13px;color:var(--grey)"></td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#7.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#7</td>
             <td style="font-weight:600;width:170px">Mental Health, Anatomy &amp; Substances</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Norway, multi-country</td>
             <td style="font-size:14px">Outdated DSM terms (e.g. bipolar disorder);
@@ -1283,7 +1509,7 @@ anatomical inconsistency (thumb vs finger)</td>
 Substances (#2)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#8.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#8</td>
             <td style="font-weight:600;width:170px">India &amp; Sweden Joint Poster</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">India, Sweden</td>
             <td style="font-size:14px">Lack of consistency, completeness and accuracy;
@@ -1293,14 +1519,14 @@ delays in content updates affecting national system go-live</td>
 (multiple Dec 2024 topics)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#9.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#9</td>
             <td style="font-weight:600;width:170px">Substances (Allergies &amp; Lifestyle)</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Multi-country</td>
             <td style="font-size:14px">Missing or incomplete modelling and definitions for substance content</td>
             <td style="font-size:13px;color:var(--grey)">Substances (#2)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#10.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#10</td>
             <td style="font-weight:600;width:170px">Broader Domain Coverage</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Belgium, Portugal, Spain, Uruguay</td>
             <td style="font-size:14px">Missing content across multiple areas;
@@ -1312,7 +1538,7 @@ Social determinants (#9)
 Interventions (#10)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#11.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#11</td>
             <td style="font-weight:600;width:170px">Vaccination &amp; Administration Procedures</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Multi-country</td>
             <td style="font-size:14px">Limited representation of vaccination processes;
@@ -1321,7 +1547,7 @@ unclear modelling of vaccine combinations</td>
             <td style="font-size:13px;color:var(--grey)">Preventive care / vaccines (#6)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#12.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#12</td>
             <td style="font-weight:600;width:170px">Alignment with Other Standards</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Belgium, Rare Disease projects</td>
             <td style="font-size:14px">Infrequent mapping updates (e.g. annual Orphanet linkage only);
@@ -1330,7 +1556,7 @@ potentially outdated or inconsistent alignments</td>
 Laboratory (#1)</td>
           </tr>
           <tr>
-            <td style="font-weight:700;color:var(--navy);width:32px">#13.0</td>
+            <td style="font-weight:700;color:var(--navy);width:32px">#13</td>
             <td style="font-weight:600;width:170px">Online Group: Medicinal Products, Substances &amp; Lab</td>
             <td style="width:130px;font-size:13px;color:var(--grey)">Online participants
 (multi-country)</td>
@@ -1499,6 +1725,12 @@ Drug extension model (#4)</td>
 var activeOrigin = 'all';
 var activeSi     = 'all';
 var activeType   = 'all';
+
+function toggleCard(card, ev) {
+  // Don't toggle when clicking interactive bits inside the card
+  if (ev && ev.target.closest('a')) return;
+  card.classList.toggle('expanded');
+}
 
 function setFilter(type, value, btn) {
   // Update active button in group
