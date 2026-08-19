@@ -241,3 +241,24 @@ input[type="submit"].btn.btn-primary {
   }
   .pf-c-login__main, #kc-content { margin: 0 auto; }
 }
+
+/* ===== Registration: hide the username field =====
+   Username is generated server-side from first/last name by the
+   Generated Username Registration SPI (generated-username-registration
+   FormAction), which overwrites whatever is submitted for this field
+   before Registration User Creation persists the user. The field is not
+   marked required at the HTML level, so hiding it does not block
+   submission.
+
+   Verified DOM structure (dev, 2026-08-18):
+     <div class="form-group">
+       <div class="col-xs-12 ..."><label for="username" ...>Username</label> *</div>
+       <div class="col-xs-12 ..."><input id="username" name="username" ...></div>
+     </div>
+   The "*" required-marker is a bare sibling text node next to the label
+   (not its own element), so it cannot be targeted directly by CSS -- the
+   whole .form-group row is hidden instead via :has(), which also removes
+   the leftover asterisk in one rule. */
+#kc-register-form .form-group:has(> div > label[for="username"]) {
+  display: none;
+}
