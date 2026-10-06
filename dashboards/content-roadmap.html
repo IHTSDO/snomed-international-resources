@@ -56,8 +56,8 @@ header.hero svg.hex{position:absolute;inset:0;width:100%;height:100%;opacity:.18
 .live-badge{background:var(--gold);color:var(--navy);font-size:14px;font-weight:800;letter-spacing:.4px;padding:5px 14px;border-radius:20px;white-space:nowrap}
 
 /* ── Draft banner ── */
-.draft-banner{background:#FFF3CD;border-bottom:2px solid #FFC000;padding:9px 48px;font-size:15px;color:#5C3D00}
-.draft-banner-inner{max-width:1500px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.status-banner{background:#EAF5FB;border-bottom:1px solid #BFE3F3;padding:9px 48px;font-size:15px;color:#003865}
+.status-banner-inner{max-width:1500px;margin:0 auto;display:flex;align-items:center;gap:8px}
 
 /* ── Pillars strip ── */
 .pillars-wrap{background:var(--navy);border-top:1px solid #1A4D80;padding:0 48px 18px}
@@ -458,7 +458,7 @@ footer a{color:#0DA9E0}
 
 @media(max-width:960px){
   .horizon-board,.evidence-cols,.pillars-grid,.events-strip{grid-template-columns:1fr}
-  header,.draft-banner,.pillars-wrap,.nav-wrap,.main,footer{padding-left:16px;padding-right:16px}
+  header,.status-banner,.pillars-wrap,.nav-wrap,.main,footer{padding-left:16px;padding-right:16px}
 }
 </style>
 </head>
@@ -508,7 +508,7 @@ footer a{color:#0DA9E0}
   letter-spacing:.4px;text-transform:uppercase;color:#8a94a6;
   border:1px solid #d5dce6;border-radius:4px;padding:2px 6px;white-space:nowrap}
 </style>
-<div class="dnav" id="dnav"><button class="dnav-btn" type="button" aria-haspopup="true" aria-expanded="false"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="6.6" height="6.6" rx="1.3"/><rect x="11.4" y="2" width="6.6" height="6.6" rx="1.3"/><rect x="2" y="11.4" width="6.6" height="6.6" rx="1.3"/><rect x="11.4" y="11.4" width="6.6" height="6.6" rx="1.3"/></svg><span>Dashboards</span><svg class="dnav-chev" width="11" height="11" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7l5 5 5-5z"/></svg></button><div class="dnav-menu" role="menu"><div class="dnav-head">SNOMED International dashboards</div><a class="dnav-item dnav-home" href="index.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 2 9.2h2.3V17h4.2v-4.6h3V17h4.2V9.2H18z"/></svg><span>All dashboards<small>Landing page</small></span></a><span class="dnav-item dnav-current"><span class="dnav-dot"></span><span class="dnav-lbl">Content Development Roadmap<small>SNOMED CT content priorities and delivery timelines, across six tabbed views with glossary</small></span><span class="dnav-tag">You are here</span></span><a class="dnav-item" href="strategic-deliverables.html" target="_blank" rel="noopener"><span class="dnav-dot"></span><span>Strategic Deliverables<small>RAG status of strategic work items for the current reporting cycle, grouped by theme</small></span></a></div></div>
+<div class="dnav" id="dnav"><button class="dnav-btn" type="button" aria-haspopup="true" aria-expanded="false"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="6.6" height="6.6" rx="1.3"/><rect x="11.4" y="2" width="6.6" height="6.6" rx="1.3"/><rect x="2" y="11.4" width="6.6" height="6.6" rx="1.3"/><rect x="11.4" y="11.4" width="6.6" height="6.6" rx="1.3"/></svg><span>Dashboards</span><svg class="dnav-chev" width="11" height="11" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7l5 5 5-5z"/></svg></button><div class="dnav-menu" role="menu"><div class="dnav-head">SNOMED International dashboards</div><a class="dnav-item dnav-home" href="index.html"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 2 9.2h2.3V17h4.2v-4.6h3V17h4.2V9.2H18z"/></svg><span>All dashboards<small>Landing page</small></span></a><span class="dnav-item dnav-current"><span class="dnav-dot"></span><span class="dnav-lbl">Content Development Roadmap<small>SNOMED CT content priorities and delivery timelines, across six tabbed views with glossary</small></span><span class="dnav-tag">You are here</span></span><a class="dnav-item" href="strategic-deliverables.html" target="_blank" rel="noopener"><span class="dnav-dot"></span><span>Strategic Deliverables<small>RAG status of strategic work items for the current reporting cycle, grouped by theme</small></span></a><a class="dnav-item" href="technical-roadmap.html" target="_blank" rel="noopener"><span class="dnav-dot"></span><span>Technical Roadmap<small>The three-year technology roadmap alongside day-to-day delivery, support, releases and service availability</small></span></a></div></div>
 <script>
 (function(){
   var root=document.getElementById('dnav');
@@ -538,11 +538,12 @@ footer a{color:#0DA9E0}
     <h1 class="header-title">Content Development <b>Roadmap</b></h1>
     <div class="header-sub">SNOMED CT content development priorities and delivery timelines <span class="live-badge">Q3 2026</span></div>
   </div>
+  
 </header>
 
-<div class="draft-banner">
-  <div class="draft-banner-inner">
-    ⚠ <strong>Working draft · September 2026:</strong> Content priorities and timelines confirmed with SNOMED International Authoring Team. Subject to revision at each IE release.
+<div class="status-banner">
+  <div class="status-banner-inner">
+    <span><strong>October 2026:</strong> Content priorities and timelines confirmed with SNOMED International Authoring Team. Subject to revision at each IE release.</span>
   </div>
 </div>
 
@@ -1792,8 +1793,8 @@ Drug extension model (#4)</td>
 <footer>
   SNOMED CT Content Development Roadmap &nbsp;·&nbsp; September 2026 &nbsp;·&nbsp;
   Evidence: Seoul '24 survey · Antwerp '25 workshop · Vienna '26 Member Forum &nbsp;·&nbsp;
-  <a href="info@snomed.org">Contact the content team</a>
-  <div style="margin-top:8px;font-size:11px;opacity:.65">Generated 25 Sep 2026 at 17:18</div>
+  <a href="mailto:info@snomed.org">Contact the content team</a>
+  <div style="margin-top:8px;font-size:11px;opacity:.65">Generated 06 Oct 2026 at 18:11</div>
 </footer>
 
 <script>
