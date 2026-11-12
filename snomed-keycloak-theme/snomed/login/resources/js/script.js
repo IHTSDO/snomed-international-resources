@@ -13,19 +13,6 @@
 
     if (!container || container.dataset.siApplyInjected === "1") return;
 
-    const p = document.createElement("p");
-    p.className = "si-apply";
-    p.append(document.createTextNode(PREFIX));
-
-    const a = document.createElement("a");
-    a.href = LINK_HREF;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.textContent = LINK_TEXT;
-
-    p.appendChild(a);
-    p.appendChild(document.createTextNode("."));
-
     // Place after the Sign In button group
     container.appendChild(p);
     container.dataset.siApplyInjected = "1";
