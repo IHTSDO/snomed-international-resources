@@ -207,16 +207,6 @@ input[type="submit"].btn.btn-primary {
   color: #374151;
 }
 
-/* ===== Injected "apply for an account" line ===== */
-.si-apply {
-  margin-top: 12px;
-  font-size: 15px;
-  line-height: 1.4;
-  text-align: center;
-  color: var(--pf-global--Color--200, #6a6e73);
-}
-.si-apply a { text-decoration: underline; color: var(--pf-global--primary-color--100, #06c); }
-.si-apply a:hover { text-decoration: none; }
 
 /* ===== Responsive tweaks ===== */
 @media (max-width: 480px) {
